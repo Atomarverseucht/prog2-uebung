@@ -8,7 +8,7 @@ import java.util.List;
 /**
  *
  * @author oliverbittel
- * @author Oliver Haase
+ * @author Oliver Haase lul
  */
 public class ArrayFrequencyTable extends AbstractFrequencyTable {
     private int size = 0;
