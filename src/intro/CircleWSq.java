@@ -11,7 +11,7 @@ public class CircleWSq implements Circle {
     /**
      * Konstante pi.
      */
-    private final double pi = 3.14;
+    private static final double pi = 3.14;
     /**
      * x-Koord. des LUP.
      */

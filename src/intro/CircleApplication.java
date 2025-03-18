@@ -21,7 +21,7 @@ public final class CircleApplication {
         Circle k1 = new CircleWRad();
         k1.resize(2);
         k1.move(-3, -3);
-        Circle k2 = new CircleWSq(2, 3, 3);
+        Circle k2 = new CircleWSq(0, 0, 0);
         System.out.println(k1.getArea());
         k2.move(1, 1);
         System.out.println(k2.getArea());
