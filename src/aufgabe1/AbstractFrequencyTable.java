@@ -26,11 +26,12 @@ public abstract class AbstractFrequencyTable implements FrequencyTable {
 		// Ihr Code:
 	}
 
+	abstract void sort();
 	@Override
 	public String toString() {
 		StringBuilder s = new StringBuilder("{");
 		// Ihr Code:
-
+		sort();
 		return s.toString();
 	}
 }

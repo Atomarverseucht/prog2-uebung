@@ -5,7 +5,7 @@ package aufgabe1;
  * @author oliverbittel
  * @author Oliver Haase
  */
-public class Word {
+public class Word implements Comparable<Word>{
 	final private String word;
 	private int frequency;
 	
@@ -46,5 +46,10 @@ public class Word {
 	@Override
 	public String toString() {
 		return word + ":" + frequency;
+	}
+
+	@Override
+	public int compareTo(Word word2){
+		return this.frequency - word2.frequency;
 	}
 }
