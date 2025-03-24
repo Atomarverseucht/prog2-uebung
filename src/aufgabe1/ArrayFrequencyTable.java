@@ -27,7 +27,8 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
     @Override
     public final void clear() {
         // throw muss auskommentiert werden!
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // throw new UnsupportedOperationException("Not supported yet."); //To change
+        // body of generated methods, choose Tools | Templates.
         // Ihr Code:
         fqTable.clear();
         size = 0;
@@ -36,7 +37,7 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
     @Override
     public void add(String w, int f) {
         for (Word word : fqTable) {
-            if (word.getWord() == w) {
+            if (word.getWord().equals(w)) {
                 word.addFrequency(f);
                 return;
             }
@@ -47,23 +48,21 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
 
     @Override
     public Word get(int pos) {
-        // throw muss auskommentiert werden!
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        // Ihr Code:
-        // ...
+        return fqTable.get(pos);
     }
 
     @Override
     public int get(String w) {
-        // throw muss auskommentiert werden!
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        // Ihr Code:
-        // ...
+        for (Word word : fqTable) {
+            if (word.getWord().equals(w)) {
+                return word.getFrequency();
+            }
+        }
     }
 
     @Override
-    public void sort(){
-         fqTable.sort(Comparator.naturalOrder());
+    public void sort() {
+        fqTable.sort(Comparator.naturalOrder());
         System.out.println(fqTable.toString());
     }
 }
