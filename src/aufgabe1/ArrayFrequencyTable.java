@@ -8,12 +8,13 @@ import java.util.List;
 /**
  *
  * @author oliverbittel
- * @author Oliver Haase lul
+ * @author Oliver Haase
  */
 public class ArrayFrequencyTable extends AbstractFrequencyTable {
     private int size = 0;
-    private List<Word> fqTable;
     private final static int DEFAULT_SIZE = 100;
+
+    private Word[] fqTable = new Word[DEFAULT_SIZE];
 
     public ArrayFrequencyTable() {
         clear();
@@ -30,7 +31,7 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
         // throw new UnsupportedOperationException("Not supported yet."); //To change
         // body of generated methods, choose Tools | Templates.
         // Ihr Code:
-        fqTable.clear();
+        Arrays.fill(fqTable, null);
         size = 0;
     }
 
@@ -39,10 +40,12 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
         for (Word word : fqTable) {
             if (word.getWord().equals(w)) {
                 word.addFrequency(f);
+                moveToLeft(size);
                 return;
             }
         }
-        fqTable.add(new Word(w, f));
+        fqTable[size] = new Word(w, f);
+        moveToLeft(size);
         size++;
     }
 
@@ -58,7 +61,7 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
 
     @Override
     public Word get(int pos) {
-        return fqTable.get(pos);
+        return fqTable[pos];
     }
 
     @Override
