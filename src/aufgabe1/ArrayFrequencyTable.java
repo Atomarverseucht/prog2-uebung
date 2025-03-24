@@ -46,6 +46,16 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
         size++;
     }
 
+    private void moveToLeft(int pos) {
+        Word w = fqTable[pos];
+        int i = pos - 1;
+        while (get(i).getFrequency() < get(pos).getFrequency()) {
+            fqTable[i + 1] = fqTable[i];
+            i++;
+        }
+        fqTable[i + 1] = w;
+    }
+
     @Override
     public Word get(int pos) {
         return fqTable.get(pos);
