@@ -25,7 +25,9 @@ public abstract class AbstractFrequencyTable implements FrequencyTable {
 
 	@Override
 	public void collectNMostFrequent(int n, FrequencyTable fq) {
-		// Ihr Code:
+		for (int i = 0; i < fq.size() && i < n; i++) {
+			this.add(this.get(i).getWord(), this.get(i).getFrequency());
+		}
 	}
 
 	@Override
