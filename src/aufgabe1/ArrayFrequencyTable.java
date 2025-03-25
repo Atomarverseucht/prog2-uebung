@@ -40,44 +40,43 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
             fqTable = Arrays.copyOf(fqTable, 2*size);
         }
         w = w.toLowerCase();
-            for (int i = 0; i < size; i++) {
-                Word word = fqTable[i];
-                if (word.getWord().equals(w)) {
-                    word.addFrequency(f);
-                    moveToLeft(i);
-                    return;
-                }
+        for (int i = 0; i < size; i++) {
+            Word word = fqTable[i];
+            if (word.getWord().equals(w)) {
+                word.addFrequency(f);
+                moveToLeft(i);
+                return;
             }
-            fqTable[size] = new Word(w, f);
-            moveToLeft(size);
-            size++;
         }
-
-        private void moveToLeft ( int pos){
-            Word w = fqTable[pos];
-            int i = pos - 1;
-            while (get(i).getFrequency() < get(pos).getFrequency()) {
-                fqTable[i + 1] = fqTable[i];
-                i++;
-            }
-            fqTable[i + 1] = w;
-        }
-
-        @Override
-        public Word get ( int pos){
-            if (pos < 0 || pos >= size) {
-                throw new IndexOutOfBoundsException();
-            }
-            return fqTable[pos];
-        }
-
-        @Override
-        public int get (String w){
-            for (Word word : fqTable) {
-                if (word.getWord().equals(w)) {
-                    return word.getFrequency();
-                }
-            }
-            return 0;
-        }
+        fqTable[size] = new Word(w, f);
+        moveToLeft(size);
+        size++;
     }
+
+    private void moveToLeft ( int pos){
+        Word w = fqTable[pos];
+        int i = pos - 1;
+        while (get(i).getFrequency() < get(pos).getFrequency()) {
+            fqTable[i + 1] = fqTable[i]; i++;
+        }
+        fqTable[i + 1] = w;
+    }
+
+    @Override
+    public Word get ( int pos){
+        if (pos < 0 || pos >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        return fqTable[pos];
+    }
+
+    @Override
+    public int get (String w){
+        for (Word word : fqTable) {
+            if (word.getWord().equals(w)) {
+                return word.getFrequency();
+            }
+        }
+        return 0;
+    }
+}
