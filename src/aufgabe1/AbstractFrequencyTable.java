@@ -19,6 +19,10 @@ public abstract class AbstractFrequencyTable implements FrequencyTable {
 	@Override
 	public void addAll(FrequencyTable fq) {
 		// Ihr Code:
+		for (int i = 0; i < fq.size(); i++) {
+			Word w = fq.get(i);
+			add(w.getWord(), w.getFrequency());
+		}
 	}
 
 	@Override
@@ -26,12 +30,10 @@ public abstract class AbstractFrequencyTable implements FrequencyTable {
 		// Ihr Code:
 	}
 
-	abstract void sort();
 	@Override
 	public String toString() {
 		StringBuilder s = new StringBuilder("{");
 		// Ihr Code:
-		sort();
 		return s.toString();
 	}
 }

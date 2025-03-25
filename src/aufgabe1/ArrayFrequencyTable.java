@@ -37,12 +37,20 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
 
     @Override
     public void add(String w, int f) {
-        for (Word word : fqTable) {
+        w = w.toLowerCase();
+        if(f<=0){
+            throw new IllegalArgumentException();
+        }
+        for (int i = 0; i < size; i++) {
+            Word word = fqTable[i];
             if (word.getWord().equals(w)) {
                 word.addFrequency(f);
-                moveToLeft(size);
+                moveToLeft(i);
                 return;
             }
+        }
+        if(size == fqTable.length){
+
         }
         fqTable[size] = new Word(w, f);
         moveToLeft(size);
@@ -70,12 +78,7 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
             if (word.getWord().equals(w)) {
                 return word.getFrequency();
             }
-        }
+        } return 0;
     }
 
-    @Override
-    public void sort() {
-        fqTable.sort(Comparator.naturalOrder());
-        System.out.println(fqTable.toString());
-    }
 }
