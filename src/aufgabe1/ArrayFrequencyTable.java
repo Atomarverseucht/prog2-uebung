@@ -33,14 +33,13 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
 
     @Override
     public void add(String w, int f) {
-        if (fqTable.length == size) {
-            fqTable = Arrays.copyOf(fqTable, 2*size);
-        }
-        for (Word word : fqTable) {
-        w = w.toLowerCase();
         if(f<=0){
             throw new IllegalArgumentException();
         }
+        if (fqTable.length == size) {
+            fqTable = Arrays.copyOf(fqTable, 2*size);
+        }
+        w = w.toLowerCase();
             for (int i = 0; i < size; i++) {
                 Word word = fqTable[i];
                 if (word.getWord().equals(w)) {
