@@ -27,16 +27,16 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
 
     @Override
     public final void clear() {
-        // throw muss auskommentiert werden!
-        // throw new UnsupportedOperationException("Not supported yet."); //To change
-        // body of generated methods, choose Tools | Templates.
-        // Ihr Code:
-        Arrays.fill(fqTable, null);
+        fqTable = new Word[DEFAULT_SIZE];
         size = 0;
     }
 
     @Override
     public void add(String w, int f) {
+        if (fqTable.length == size) {
+            fqTable = Arrays.copyOf(fqTable, 2*size);
+        }
+        for (Word word : fqTable) {
         w = w.toLowerCase();
         if(f<=0){
             throw new IllegalArgumentException();
@@ -48,9 +48,6 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
                 moveToLeft(i);
                 return;
             }
-        }
-        if(size == fqTable.length){
-
         }
         fqTable[size] = new Word(w, f);
         moveToLeft(size);
@@ -69,6 +66,9 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
 
     @Override
     public Word get(int pos) {
+        if (pos < 0 || pos >= size) {
+            throw new IndexOutOfBoundsException();
+        }
         return fqTable[pos];
     }
 
@@ -78,7 +78,7 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
             if (word.getWord().equals(w)) {
                 return word.getFrequency();
             }
-        } return 0;
+        }
+        return 0;
     }
-
 }
