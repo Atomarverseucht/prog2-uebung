@@ -70,18 +70,18 @@ public class ArrayFrequencyTable_Test {
 		
 		long start = System.nanoTime(); // aktuelle Zeit in nsec
 		LineNumberReader in;
-		in = new LineNumberReader(new FileReader("Kafka_Der_Prozess.txt", StandardCharsets.UTF_8));
+		in = new LineNumberReader(new FileReader("src/aufgabe1/Kafka_Der_Prozess.txt", StandardCharsets.UTF_8));
 		String line;
 		
 		// Text einlesen und Häfigkeiten aller Wörter bestimmen:
 		while ((line = in.readLine()) != null) {
 			String[] wf = line.split("[^a-z^A-Z^ß^ä^ö^ü^Ä^Ö^Ü]+");
 			for (String w: wf) {
-				if (w.length() == 0 || w.length() == 1)
+				if (w.length() == 0 || w.length() == 1) {
 					continue;
-				System.out.println(w);
+				}
 				// Ihr Code:
-
+				tab.add(w);
 			}
 		}	
 		
@@ -91,7 +91,9 @@ public class ArrayFrequencyTable_Test {
 		// Ausgabe der 100 häufigsten Wörter:
 		System.out.println("100 häufigste Wörter:");
 		// Ihr Code
-		
+		FrequencyTable out = new ArrayFrequencyTable();
+		tab.collectNMostFrequent(100, out);
+		System.out.println(out);
 		System.out.println("");		
 		System.out.println("Benötigte Zeit in msec: " + elapsedTime);
 	}

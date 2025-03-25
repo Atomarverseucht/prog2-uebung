@@ -1,9 +1,6 @@
 package aufgabe1;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  *
@@ -54,10 +51,11 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
     }
 
     private void moveToLeft ( int pos){
-        Word w = fqTable[pos];
+
+        final Word w = fqTable[pos];
         int i = pos - 1;
-        while (get(i).getFrequency() < get(pos).getFrequency()) {
-            fqTable[i + 1] = fqTable[i]; i++;
+        while (i >= 0 && get(i).getFrequency() < w.getFrequency()) {
+            fqTable[i + 1] = fqTable[i]; i--;
         }
         fqTable[i + 1] = w;
     }
@@ -73,7 +71,7 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
     @Override
     public int get (String w){
         for (Word word : fqTable) {
-            if (word.getWord().equals(w)) {
+            if (word != null && word.getWord().equals(w.toLowerCase())) {
                 return word.getFrequency();
             }
         }
