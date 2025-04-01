@@ -38,7 +38,7 @@ public abstract class AbstractFrequencyTable implements FrequencyTable {
 		for (int i = 0; i < this.size(); i++) {
 			String w = get(i).getWord();
 			int f = get(i).getFrequency();
-			s.append(w).append(":").append(f).append(", ");
+			s.append((i+1)+". ").append(w).append(":").append(f).append(",\n");
 		}
 		s.append("}").append(" size = ").append(this.size());
 		return s.toString();
