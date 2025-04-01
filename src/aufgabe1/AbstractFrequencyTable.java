@@ -18,7 +18,8 @@ public abstract class AbstractFrequencyTable implements FrequencyTable {
 
 	@Override
 	public void addAll(FrequencyTable fq) {
-		for (int i = 0; i < fq.size(); i++) {
+		int n = fq.size();
+		for (int i = 0; i < n; i++) {
 			this.add(fq.get(i).getWord(), fq.get(i).getFrequency());
 		}
 	}
