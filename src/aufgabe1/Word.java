@@ -52,4 +52,8 @@ public class Word implements Comparable<Word>{
 	public int compareTo(Word word2){
 		return this.frequency - word2.frequency;
 	}
+
+	public Word copy(){
+		return new Word(word, frequency);
+	}
 }
