@@ -8,29 +8,6 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
     private Node begin;
     private Node end;
 
-    @Override
-    public int size(){
-        return size;
-    }
-
-    @Override
-    public void clear(){
-        begin.next = end;
-    }
-
-    @Override
-    public void add(String w, int f){
-    }
-
-    @Override
-    public int get(String f){
-        return 0;
-    }
-
-    @Override
-    public Word get(int pos){
-        return begin.data();
-    }
     public class Node{
         private Node previous;
         private Node next;
@@ -49,5 +26,32 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
         void addFrequency(int f){
             data.addFrequency(f);
         }
+    }
+
+    @Override
+    public int size(){
+        return size;
+    }
+
+    @Override
+    public void clear(){
+        begin = new Node(null, null, null);
+        end = new Node(null, null, begin);
+        begin.next = end;
+        size = 0;
+    }
+
+    @Override
+    public void add(String w, int f){
+    }
+
+    @Override
+    public int get(String f){
+        return 0;
+    }
+
+    @Override
+    public Word get(int pos){
+        return begin.data();
     }
 }
