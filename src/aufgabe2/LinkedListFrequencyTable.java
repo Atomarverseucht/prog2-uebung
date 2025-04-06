@@ -61,11 +61,21 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
         Node newNode = new Node(pre, end, newWord);
         pre.next = newNode;
         end.previous = newNode;
-        moveToLeft(p);
         size++;
+        moveToLeft(p);
     }
-    public void moveToLeft(Node p) {
 
+    public void moveToLeft(Node p) {
+        int f = p.data.getFrequency();
+        Word w = p.data;
+        for (int i = 0; i < size; i++) {
+            if (p.previous != null && p.previous.data.getFrequency() >= f) {
+                p.data = w;
+            } else {
+                p.data = p.previous.data;
+                p = p.previous;
+            }
+        }
     }
 
     @Override
