@@ -79,12 +79,33 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
     }
 
     @Override
-    public int get(String f) {
-        return 0;
+    public Word get(int pos) {
+        if (pos < 0 || pos >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node p;
+        if (pos < size / 2) {
+            p = begin;
+            int i;
+            for (i = 0; i <= pos; i++) {
+                p = p.next;
+            }
+            if (i == pos) {
+                return p.data;
+            }
+        } else {
+            p = end;
+            int i;
+            for (i = 0; i <= size - pos; i++) {
+                p = p.previous;
+            }
+            return p.data;
+        }
+        throw new IndexOutOfBoundsException();
     }
 
     @Override
-    public Word get(int pos) {
-        return begin.data();
+    public int get(String f) {
+        return 0;
     }
 }
