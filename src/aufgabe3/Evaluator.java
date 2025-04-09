@@ -69,11 +69,25 @@ public class Evaluator {
     }
 
     private boolean shift() {
-        if (stack[size -1] == DOLLAR && (token == KL_AUF || isVal(token))) {		// Regel 1 der Parser-Tabelle
+        if ((stack[size -1] == DOLLAR || isOp(stack[size-1]) || stack[size-1] == KL_AUF)
+                && (token == KL_AUF || isVal(token))) {		                                    // Regel 1-3 der Parser-Tabelle
             doShift();
             return true;
-        } // Ihr Code:
-        // ...
+        } else if(checkStackPattern("$v") && isOp(token)){                                      // Regel 6
+            doShift();
+            return true;
+        } else if(checkStackPattern("(v") && (isOp(token) || token == KL_ZU)){                  // Regel 7
+            doShift();
+            return true;
+        } else if(checkStackPattern("vov") && isOp(token)){
+            if(compareOp((String) stack[size-2], (String)token) <= 0) {                         // Regel 9
+                doShift();
+                return true;
+            } else{
+                doReduceValOpVal();
+                return true;
+            }
+        }
         else {
             return false;
         }
@@ -81,6 +95,7 @@ public class Evaluator {
 
     private static void doShift() {
         // Ihr Code:
+
         // ...
     }
 
@@ -98,30 +113,61 @@ public class Evaluator {
         }
 
         if (stack[size - 3] == KL_AUF && isVal(stack[size - 2]) && stack[size -1] == KL_ZU
-                && (token == KL_ZU || isOp(token) || token == DOLLAR)) {         // Regel 4 der Parser-Tabelle			
+                && (token == KL_ZU || isOp(token) || token == DOLLAR)) {         // Regel 4 der Parser-Tabelle		(v)
             doReduceKlValKl();
             return true;
-        } // Ihr Code:
-        // ...
-
+        } else if(checkStackPattern("vov") && (token == KL_ZU || token == DOLLAR)){ // Regel 8
+            doReduceValOpVal();
+            return true;
+        }
         else {
             return false;
         }
     }
 
-    private static void doReduceKlValKl() {
-        // Ihr Code:
-        // ...
+    private boolean checkStackPattern(String pattern){
+        final int pSize = pattern.length();
+        for (int i = 1; i <= pSize; i++) {
+            Object s = stack[size-i];
+            char p = pattern.charAt(pSize - i);
+            if(p == 'v' && isVal(s)){
+                continue;
+            } else if(p == 'o' && isOp(s)){
+                continue;
+            } else if(!isVal(s) && ((String) s).charAt(0) == p){
+                continue;
+            } return false;
+        }
+        return true;
     }
 
-    private static void doReduceValOpVal() {
+    private void doReduceKlValKl() {
         // Ihr Code:
-        // ...
+        stack[size-3] = stack[size-2];
+        size -= 2;
     }
 
-    private static boolean accept() {
+    private void doReduceValOpVal() {
         // Ihr Code:
-        // ...
+        double solution = 0;
+        double v1 = (double) stack[size - 3];
+        String op = (String) stack[size - 2];
+        double v2 = (double) stack[size - 1];
+        switch(op){
+            case "+": solution = v1 + v2; break;
+            case "*": solution = v1 * v2; break;
+            case "^": solution = Math.pow(v1, v2); break;
+            default: throw new IllegalArgumentException();
+        }
+        stack[size - 3] = solution;
+        size -= 2;
+    }
+
+    private boolean accept() {
+        // Ihr Code:
+        if(checkStackPattern("$v") && token == DOLLAR){
+            return true;
+        }
         return false;
     }
 
@@ -141,6 +187,21 @@ public class Evaluator {
         }
     }
 
+    public static int compareOp(String op1, String op2){
+        int[] opV = new int[2];
+        String[] op = new String[2];
+        op[0] = op1;
+        op[1] = op2;
+        for (int i = 0; i < op.length; i++) {
+            switch(op[i]){
+                case "^": opV[i] = 1;
+                case "*": opV[i]++;
+                case "+": opV[i]++; break;
+                default: throw new IllegalArgumentException();
+            }
+        }
+        return (opV[0] - opV[1]);
+    }
     /**
      * Testprogramm.
      *

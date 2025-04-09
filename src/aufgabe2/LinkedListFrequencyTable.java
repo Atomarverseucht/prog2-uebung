@@ -85,7 +85,7 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
         Node p = begin;
         for (int i = 0; i < size; i++) {
             p = p.next;
-            if (p.data != null && p.data.getWord().equals(f.toLowerCase())) {
+            if (p.data != null && p.data.getWord().equals(f)) {
                 return p.data.getFrequency();
             }
         }
