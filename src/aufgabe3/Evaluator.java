@@ -101,7 +101,7 @@ public class Evaluator {
         }
         stack[size] = token;
         size++;
-        tokenizer.nextToken();
+        token = tokenizer.nextToken();
     }
 
     private boolean isOp(Object o) {
@@ -193,6 +193,9 @@ public class Evaluator {
     }
 
     public static int compareOp(String op1, String op2){
+        if(op1.equals(op2) && op1.equals("^")){
+            return
+        }
         int[] opV = new int[2];
         String[] op = new String[2];
         op[0] = op1;
@@ -206,6 +209,14 @@ public class Evaluator {
             }
         }
         return (opV[0] - opV[1]);
+    }
+
+    public void addToStack(Object in){
+        if(size == stack.length){
+            stack = Arrays.copyOf(stack, 2*size);
+        }
+        stack[size] = in;
+        size++;
     }
     /**
      * Testprogramm.
@@ -233,11 +244,11 @@ public class Evaluator {
         System.out.println(evaluator.eval(s4));	// 324.0
         System.out.println(evaluator.eval(s5));	// null; Syntaxfehler
         System.out.println(evaluator.eval(s6));	// null; Syntaxfehler
-        System.out.println(evaluator.eval(s7));	// 64.0
+        System.out.println(evaluator.eval(s7));	// 256.0
         System.out.println(evaluator.eval(s8));	// 20.0
         System.out.println(evaluator.eval(s9));	// 21.0
-        System.out.println(evaluator.eval(s10));	// 21.0
+        System.out.println(evaluator.eval(s10)); // 21.0
 
-        //repl();
+        evaluator.repl();
     }
 }
