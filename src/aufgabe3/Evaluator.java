@@ -11,6 +11,7 @@
  */
 package aufgabe3;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 import static aufgabe3.Tokenizer.*;
@@ -27,7 +28,7 @@ import static aufgabe3.Tokenizer.*;
 public class Evaluator {
 
     private static final String ANSI_BLUE = "\u001B[34m";
-    private final Object[] stack;		    // Stack
+    private Object[] stack;		    // Stack
     private int size;	    				// Index des obersten Kellerelements
     private Object token;					// Aktuelles Token
     private Tokenizer tokenizer;			// Zerlegt String-Eingabe in Tokens
@@ -93,10 +94,14 @@ public class Evaluator {
         }
     }
 
-    private static void doShift() {
+    private void doShift() {
         // Ihr Code:
-
-        // ...
+        if(size == stack.length){
+            stack = Arrays.copyOf(stack, 2*size);
+        }
+        stack[size] = token;
+        size++;
+        tokenizer.nextToken();
     }
 
     private boolean isOp(Object o) {
@@ -194,9 +199,9 @@ public class Evaluator {
         op[1] = op2;
         for (int i = 0; i < op.length; i++) {
             switch(op[i]){
-                case "^": opV[i] = 1;
-                case "*": opV[i]++;
-                case "+": opV[i]++; break;
+                case "^": opV[i] = 2; break;
+                case "*": opV[i] = 1; break;
+                case "+": opV[i] = 0; break;
                 default: throw new IllegalArgumentException();
             }
         }
