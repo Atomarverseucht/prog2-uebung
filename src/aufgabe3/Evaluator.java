@@ -187,15 +187,12 @@ public class Evaluator {
         while (in.hasNextLine()) {
             String line = in.nextLine();
             // Ihr Code:
-            // ...
+            System.out.println(eval(line));
             System.out.print(ANSI_BLUE + ">> ");
         }
     }
 
     public static int compareOp(String op1, String op2){
-        if(op1.equals(op2) && op1.equals("^")){
-            return
-        }
         int[] opV = new int[2];
         String[] op = new String[2];
         op[0] = op1;
