@@ -96,11 +96,7 @@ public class Evaluator {
 
     private void doShift() {
         // Ihr Code:
-        if(size == stack.length){
-            stack = Arrays.copyOf(stack, 2*size);
-        }
-        stack[size] = token;
-        size++;
+        addToStack(token);
         token = tokenizer.nextToken();
     }
 
@@ -154,7 +150,7 @@ public class Evaluator {
 
     private void doReduceValOpVal() {
         // Ihr Code:
-        double solution = 0;
+        double solution;
         double v1 = (double) stack[size - 3];
         String op = (String) stack[size - 2];
         double v2 = (double) stack[size - 1];
