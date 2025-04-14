@@ -7,7 +7,7 @@ import java.util.Arrays;
  * @author oliverbittel
  * @author Oliver Haase
  */
-public class ArrayFrequencyTable extends AbstractFrequencyTable {
+public class ArrayFrequencyTable<T> extends AbstractFrequencyTable<T> {
     private int size = 0;
     private final static int DEFAULT_SIZE = 100;
 
@@ -29,14 +29,13 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
     }
 
     @Override
-    public void add(String w, int f) {
+    public void add(T w, int f) {
         if(f<=0){
             throw new IllegalArgumentException();
         }
         if (fqTable.length == size) {
-            fqTable = Arrays.copyOf(fqTable, 2*size);
+            fqTable = Arrays.copyOf(fqTable, 2 * size);
         }
-        w = w.toLowerCase();
         for (int i = 0; i < size; i++) {
             Word word = fqTable[i];
             if (word.getWord().equals(w)) {
@@ -69,9 +68,9 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
     }
 
     @Override
-    public int get (String w){
+    public int get (T w){
         for (Word word : fqTable) {
-            if (word != null && word.getWord().equals(w.toLowerCase())) {
+            if (word != null && word.getWord().equals(w)) {
                 return word.getFrequency();
             }
         }

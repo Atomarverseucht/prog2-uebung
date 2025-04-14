@@ -3,7 +3,7 @@ package aufgabe2;
 import aufgabe1.AbstractFrequencyTable;
 import aufgabe1.Word;
 
-public class LinkedListFrequencyTable extends AbstractFrequencyTable {
+public class LinkedListFrequencyTable<T> extends AbstractFrequencyTable<T> {
     private int size = 0;
     private Node begin;
     private Node end;
@@ -27,7 +27,7 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
     }
 
     @Override
-    public void add(String w, int f) {
+    public void add(T w, int f) {
         if (f <= 0 && w == null) {
             throw new IllegalArgumentException();
         }
@@ -81,7 +81,7 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
     }
 
     @Override
-    public int get(String f) {
+    public int get(T f) {
         Node p = begin;
         for (int i = 0; i < size; i++) {
             p = p.next;

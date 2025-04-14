@@ -77,7 +77,7 @@ public class ArrayFrequencyTable_Test {
 		while ((line = in.readLine()) != null) {
 			String[] wf = line.split("[^a-z^A-Z^ß^ä^ö^ü^Ä^Ö^Ü]+");
 			for (String w: wf) {
-				if (w.length() == 0 || w.length() == 1) {
+				if (w.isEmpty() || w.length() == 1) {
 					continue;
 				}
 				// Ihr Code:

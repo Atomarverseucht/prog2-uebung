@@ -5,8 +5,8 @@ package aufgabe1;
  * @author oliverbittel
  * @author Oliver Haase
  */
-public class Word implements Comparable<Word>{
-	final private String word;
+public class Word<T> implements Comparable<Word>{
+	final private T word;
 	private int frequency;
 	
 	/**
@@ -14,7 +14,7 @@ public class Word implements Comparable<Word>{
 	 * @param word Wort
 	 * @param f H&auml;ufgkeit
 	 */
-	public Word(String word, int f) {
+	public Word(T word, int f) {
 		this.word = word;
 		this.frequency = f;
 	}
@@ -23,7 +23,7 @@ public class Word implements Comparable<Word>{
 	 * Liefert Wort zur&uuml;ck.
 	 * @return Wort
 	 */
-	public String getWord() {
+	public T getWord() {
 		return word;
 	}
 
@@ -45,7 +45,7 @@ public class Word implements Comparable<Word>{
 
 	@Override
 	public String toString() {
-		return word + ":" + frequency;
+		return word.toString() + ":" + frequency;
 	}
 
 	@Override
