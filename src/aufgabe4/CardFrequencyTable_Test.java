@@ -1,14 +1,15 @@
 package aufgabe4;
 
 import java.util.Random;
-
+import aufgabe1.FrequencyTable;
+import aufgabe1.ArrayFrequencyTable;
 /**
  *
  * @author oliverbittel
  * @since 31.07.2023
  */
 public class CardFrequencyTable_Test {
-/*
+
 	public static void main(String[] args) {
 
 		FrequencyTable<Card> cardTab1 = new ArrayFrequencyTable<>();
@@ -49,5 +50,5 @@ public class CardFrequencyTable_Test {
 		//cardTab1.collectNMostFrequent(10, redCardTab); // nicht OK
 		redCardTab.collectNMostFrequent(5, cardTab2);
 		System.out.println(cardTab2);
-	}*/
+	}
 }
