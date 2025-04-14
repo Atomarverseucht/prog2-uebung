@@ -42,7 +42,7 @@ public class CardFrequencyTable_Test {
 		//redCardTab.addAll(cardTab1); // nicht OK
 		cardTab1.addAll(redCardTab);
 		
-		redCardTab.addAll(redCardTab); // Aufruf funktioniert nur, wenn add strukturerhaltend implemntiert ist. Daher problematisch.
+		redCardTab.addAll(redCardTab); // Aufruf funktioniert nur, wenn add strukturerhaltend implementiert ist. Daher problematisch.
 		System.out.println(redCardTab);
 		
 		cardTab1.collectNMostFrequent(5,cardTab2);
