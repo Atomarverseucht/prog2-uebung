@@ -17,7 +17,7 @@ public abstract class AbstractFrequencyTable<T> implements FrequencyTable<T> {
     }
 
 	@Override
-	public void addAll(FrequencyTable fq) {
+	public void addAll(FrequencyTable<T> fq) {
 		int n = fq.size();
 		for (int i = 0; i < n; i++) {
 			this.add((T) fq.get(i).getWord(), fq.get(i).getFrequency());
@@ -25,10 +25,10 @@ public abstract class AbstractFrequencyTable<T> implements FrequencyTable<T> {
 	}
 
 	@Override
-	public void collectNMostFrequent(int n, FrequencyTable fq) {
+	public void collectNMostFrequent(int n, FrequencyTable<T> fq) {
 		fq.clear();
 		for (int i = 0; i < this.size() && i < n; i++) {
-			fq.add(this.get(i).getWord(), this.get(i).getFrequency());
+			fq.add((T) this.get(i).getWord(), this.get(i).getFrequency());
 		}
 	}
 

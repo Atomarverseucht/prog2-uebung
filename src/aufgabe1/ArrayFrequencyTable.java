@@ -11,7 +11,7 @@ public class ArrayFrequencyTable<T> extends AbstractFrequencyTable<T> {
     private int size = 0;
     private final static int DEFAULT_SIZE = 100;
 
-    private Word[] fqTable = new Word[DEFAULT_SIZE];
+    private Word<T>[] fqTable = new Word[DEFAULT_SIZE];
 
     public ArrayFrequencyTable() {
         clear();
