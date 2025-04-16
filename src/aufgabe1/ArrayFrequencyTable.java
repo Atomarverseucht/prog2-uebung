@@ -37,21 +37,21 @@ public class ArrayFrequencyTable<T> extends AbstractFrequencyTable<T> {
             fqTable = Arrays.copyOf(fqTable, 2 * size);
         }
         for (int i = 0; i < size; i++) {
-            Word word = fqTable[i];
+            Word<T> word = fqTable[i];
             if (word.getWord().equals(w)) {
                 word.addFrequency(f);
                 moveToLeft(i);
                 return;
             }
         }
-        fqTable[size] = new Word(w, f);
+        fqTable[size] = new Word<>(w, f);
         moveToLeft(size);
         size++;
     }
 
     private void moveToLeft ( int pos){
 
-        final Word w = fqTable[pos];
+        final Word<T> w = fqTable[pos];
         int i = pos - 1;
         while (i >= 0 && get(i).getFrequency() < w.getFrequency()) {
             fqTable[i + 1] = fqTable[i]; i--;
@@ -60,7 +60,7 @@ public class ArrayFrequencyTable<T> extends AbstractFrequencyTable<T> {
     }
 
     @Override
-    public Word get ( int pos){
+    public Word<T> get ( int pos){
         if (pos < 0 || pos >= size) {
             throw new IndexOutOfBoundsException();
         }
@@ -69,7 +69,7 @@ public class ArrayFrequencyTable<T> extends AbstractFrequencyTable<T> {
 
     @Override
     public int get (T w){
-        for (Word word : fqTable) {
+        for (Word<T> word : fqTable) {
             if (word != null && word.getWord().equals(w)) {
                 return word.getFrequency();
             }

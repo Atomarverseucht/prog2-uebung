@@ -20,7 +20,7 @@ public class ArrayFrequencyTable_Test {
 	
 	private static void test1() {
 		// Test von add:
-		FrequencyTable tab1 = new ArrayFrequencyTable();
+		FrequencyTable<String> tab1 = new ArrayFrequencyTable<>();
 		tab1.add("das");
 		tab1.add("ist");
 		tab1.add("ein",2);
@@ -49,7 +49,7 @@ public class ArrayFrequencyTable_Test {
 		System.out.println("Ist:  " + tab1 +  "\n");
 		
 		// Test von addAll:
-		FrequencyTable tab2 = new ArrayFrequencyTable();
+		FrequencyTable<String> tab2 = new ArrayFrequencyTable<>();
 		tab2.add("das",2);
 		tab2.add("ist",4);
 		tab2.add("kurzer");
@@ -66,7 +66,7 @@ public class ArrayFrequencyTable_Test {
 	}
 	
 	private static void test2() throws FileNotFoundException, IOException {
-		FrequencyTable tab = new ArrayFrequencyTable();
+		FrequencyTable<String> tab = new ArrayFrequencyTable<>();
 		
 		long start = System.nanoTime(); // aktuelle Zeit in nsec
 		LineNumberReader in;
@@ -91,10 +91,10 @@ public class ArrayFrequencyTable_Test {
 		// Ausgabe der 100 häufigsten Wörter:
 		System.out.println("100 häufigste Wörter:");
 		// Ihr Code
-		FrequencyTable out = new ArrayFrequencyTable();
+		FrequencyTable<String> out = new ArrayFrequencyTable<>();
 		tab.collectNMostFrequent(100, out);
 		System.out.println(out);
-		System.out.println("");		
+		System.out.println();
 		System.out.println("Benötigte Zeit in msec: " + elapsedTime);
 	}
 }

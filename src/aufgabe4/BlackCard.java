@@ -8,7 +8,7 @@ import java.util.Random;
  * @since 22.2.2019
  */
 public class BlackCard extends Card {
-	private Random rand = new Random();
+	private final Random rand = new Random();
 
     public BlackCard(Suit suit, Rank rank) {
         if (suit == Suit.DIAMONDS || suit == Suit.HEARTS) {

@@ -5,7 +5,7 @@ package aufgabe1;
  * @author oliverbittel
  * @author Oliver Haase
  */
-public class Word<T> implements Comparable<Word>{
+public class Word<T> implements Comparable<Word<T>>{
 	final private T word;
 	private int frequency;
 	
@@ -53,7 +53,7 @@ public class Word<T> implements Comparable<Word>{
 		return this.frequency - word2.frequency;
 	}
 
-	public Word copy(){
-		return new Word(word, frequency);
+	public Word<T> copy(){
+		return new Word<>(word, frequency);
 	}
 }
