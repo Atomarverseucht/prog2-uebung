@@ -1,5 +1,7 @@
 package aufgabe1;
 
+import java.util.Iterator;
+
 /**
  *
  * @author oliverbittel
@@ -18,17 +20,16 @@ public abstract class AbstractFrequencyTable<T> implements FrequencyTable<T> {
 
 	@Override
 	public void addAll(FrequencyTable<? extends T> fq) {
-		int n = fq.size();
-		for (int i = 0; i < n; i++) {
-			this.add(fq.get(i).getWord(), fq.get(i).getFrequency());
+		for(Word<? extends T> w : fq){
+			this.add(w.getWord(), w.getFrequency());
 		}
 	}
 
 	@Override
 	public void collectNMostFrequent(int n, FrequencyTable<? super T> fq) {
 		fq.clear();
-		for (int i = 0; i < this.size() && i < n; i++) {
-			fq.add(this.get(i).getWord(), this.get(i).getFrequency());
+		for(Word<? extends T> w : this){
+			fq.add(w.getWord(), w.getFrequency());
 		}
 	}
 
@@ -42,5 +43,22 @@ public abstract class AbstractFrequencyTable<T> implements FrequencyTable<T> {
 		}
 		s.append("}").append(" size = ").append(this.size());
 		return s.toString();
+	}
+
+	@Override
+	public Iterator<Word<T>> iterator(){
+		return new Iterator<>() {
+			public int index = 0;
+			@Override
+			public boolean hasNext() {
+				return (index + 1 < size() && get(index +1) != null);
+			}
+
+			@Override
+			public Word<T> next() {
+				index++;
+				return get(index);
+			}
+		};
 	}
 }
