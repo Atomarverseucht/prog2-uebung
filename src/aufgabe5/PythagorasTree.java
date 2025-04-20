@@ -1,6 +1,6 @@
 package aufgabe5;
 
-public static class PythagorasTree {
+public class PythagorasTree {
     public static void main(String[] args) {
         StdDraw.setPenColor(StdDraw.RED);
         StdDraw.setPenRadius(0.01);
