@@ -6,15 +6,15 @@ public final class Position {
     private final double y;
 
 
-    public static Position deltaPosition(Position p1, Position p2){
+    public Position deltaPosition(Position p1){
         double x, y;
-        y = p1.y - p2.y;
-        x = p1.x - p2.x;
+        y = p1.y - this.y;
+        x = p1.x - this.x;
         return new Position(x,y);
     }
 
-    public static double deltaAmount(Position p1, Position p2){
-        Position delta = deltaPosition(p1, p2);
+    public double deltaAmount(Position p1){
+        Position delta = this.deltaPosition(p1);
         return delta.amount();
     }
 
@@ -34,4 +34,8 @@ public final class Position {
     public double x(){ return x; }
 
     public double y(){ return y; }
+
+    public void drawLine(Position target){
+        StdDraw.line(x, y, target.x(), target.y());
+    }
 }
