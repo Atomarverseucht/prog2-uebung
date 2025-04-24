@@ -48,7 +48,7 @@ public abstract class AbstractFrequencyTable<T> implements FrequencyTable<T> {
 	@Override
 	public Iterator<Word<T>> iterator(){
 		return new Iterator<>() {
-			public int index = 0;
+			private int index = 0;
 			@Override
 			public boolean hasNext() {
 				return (index + 1 < size() && get(index +1) != null);
