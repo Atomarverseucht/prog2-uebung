@@ -1203,19 +1203,55 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         StdDraw.line(x, y, B.x, B.y);
         StdDraw.line(D.x, D.y, C.x, C.y);
         StdDraw.line(C.x, C.y, B.x, B.y);
-        variante1(D.x, D.y, len * 0.98, phi + delta, penRad/1.02, i - 1);
+        variante1(D.x, D.y, len * 0.98, phi + delta, penRad / 1.02, i - 1);
         double alpha = Math.cosh((Math.abs(E.x - C.x) / v));
-        variante1(E.x, E.y, v, phi-alpha, penRad/1.4, i - 1);
+        variante1(E.x, E.y, v, phi - alpha, penRad / 1.4, i - 1);
     }
 
-    // static Position smallHelperB(double phi, int len, double x, double y) {
-    // phi = Math.PI / 360 * phi;
-    // double s = len * Math.sin(phi);
-    // double c = len * Math.cos(phi);
-    //
-    // Position B = new Position(x + c, y + s);
-    // return B;
-    // }
+    static void variante2(
+            double x, double y, double len, double phi, double penRad, int i) {
+        if (i == 0)
+            return;
+        phi = Math.PI / 360 * rand(-90, 90);
+        double hoehe = rand(len*0.01, len*5);
+        double delta = Math.PI / 360 * rand(-90, 90);
+        double ls = len * Math.sin(phi);
+        double lc = len * Math.cos(phi);
+        double hs = hoehe * Math.sin(phi);
+        double hc = hoehe * Math.cos(phi);
+        StdDraw.setPenRadius(penRad);
+
+        // Quadrat
+        Position B = new Position(x + lc, y + ls);
+        Position C = new Position(x + lc - hs, y + ls + hc);
+        Position D = new Position(x - hs, y + hc);
+
+        // Dreieck
+        double u = len * Math.cos(delta);
+        double v = len * Math.sin(delta);
+        double ex = u * Math.cos(phi + delta);
+        double ey = u * Math.sin(phi + delta);
+        Position E = new Position(D.x + ex, D.y + ey);
+        // Dreieck
+        StdDraw.setPenColor(StdDraw.RED);
+        StdDraw.line(D.x, D.y, E.x, E.y);
+        StdDraw.line(C.x, C.y, E.x, E.y);
+        // Quadrad
+        StdDraw.setPenColor(StdDraw.BLACK);
+        StdDraw.line(x, y, D.x, D.y);
+        StdDraw.line(x, y, B.x, B.y);
+        StdDraw.line(D.x, D.y, C.x, C.y);
+        StdDraw.line(C.x, C.y, B.x, B.y);
+        variante1(D.x, D.y, len * 0.98, phi + delta, penRad / 1.02, i - 1);
+        double alpha = Math.cosh((Math.abs(E.x - C.x) / v));
+        variante1(E.x, E.y, v, phi - alpha, penRad / 1.4, i - 1);
+    }
+
+    static double rand(double min, double max) {
+        double range = max - min + 1;
+        double randDouble = Math.random() * range + min;
+        return randDouble;
+    }
 
     /**
      * Test client.
@@ -1223,8 +1259,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     public static void main(String[] args) {
 
         // set the scale of the coordinate system
-        StdDraw.setXscale(-20, 20);
-        StdDraw.setYscale(-20, 20);
+        StdDraw.setXscale(-30, 10);
+        StdDraw.setYscale(0, 40);
 
         // // Draw line2b
         // StdDraw.line(1, 1, 8, 8);
@@ -1250,12 +1286,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         double x = 0.0;
         double y = 0.0;
         double phi = Math.PI / 360 * 30;
-        int tries = 30;
+        int tries = 10;
         double penRad = 0.002;
 
+        StdDraw.show(0);
+        // variante1(x, y, len, phi, penRad, tries);
         // StdDraw.show(0);
-        variante1(x, y, len, phi, penRad, tries);
-        // StdDraw.show(0);
+        variante2(x, y, len, phi, penRad, tries);
+        StdDraw.show(0);
     }
 
 }
