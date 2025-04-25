@@ -35,36 +35,38 @@ import java.util.LinkedList;
 import java.util.TreeSet;
 
 /**
- *  <i>Standard draw</i>. This class provides a basic capability for
- *  creating drawings with your programs. It uses a simple graphics model that
- *  allows you to create drawings consisting of points, lines, and curves
- *  in a window on your computer and to save the drawings to a file.
- *  <p>
- *  For additional documentation, see <a href="http://introcs.cs.princeton.edu/15inout">Section 1.5</a> of
- *  <i>Introduction to Programming in Java: An Interdisciplinary Approach</i> by Robert Sedgewick and Kevin Wayne.
+ * <i>Standard draw</i>. This class provides a basic capability for
+ * creating drawings with your programs. It uses a simple graphics model that
+ * allows you to create drawings consisting of points, lines, and curves
+ * in a window on your computer and to save the drawings to a file.
+ * <p>
+ * For additional documentation, see
+ * <a href="http://introcs.cs.princeton.edu/15inout">Section 1.5</a> of
+ * <i>Introduction to Programming in Java: An Interdisciplinary Approach</i> by
+ * Robert Sedgewick and Kevin Wayne.
  */
 public final class StdDraw implements ActionListener, MouseListener, MouseMotionListener, KeyListener {
 
     // pre-defined colors
-    public static final Color BLACK      = Color.BLACK;
-    public static final Color BLUE       = Color.BLUE;
-    public static final Color CYAN       = Color.CYAN;
-    public static final Color DARK_GRAY  = Color.DARK_GRAY;
-    public static final Color GRAY       = Color.GRAY;
-    public static final Color GREEN      = Color.GREEN;
+    public static final Color BLACK = Color.BLACK;
+    public static final Color BLUE = Color.BLUE;
+    public static final Color CYAN = Color.CYAN;
+    public static final Color DARK_GRAY = Color.DARK_GRAY;
+    public static final Color GRAY = Color.GRAY;
+    public static final Color GREEN = Color.GREEN;
     public static final Color LIGHT_GRAY = Color.LIGHT_GRAY;
-    public static final Color MAGENTA    = Color.MAGENTA;
-    public static final Color ORANGE     = Color.ORANGE;
-    public static final Color PINK       = Color.PINK;
-    public static final Color RED        = Color.RED;
-    public static final Color WHITE      = Color.WHITE;
-    public static final Color YELLOW     = Color.YELLOW;
+    public static final Color MAGENTA = Color.MAGENTA;
+    public static final Color ORANGE = Color.ORANGE;
+    public static final Color PINK = Color.PINK;
+    public static final Color RED = Color.RED;
+    public static final Color WHITE = Color.WHITE;
+    public static final Color YELLOW = Color.YELLOW;
 
     /**
      * Shade of blue used in Introduction to Programming in Java.
      * It is Pantone Pantone 300U. The RGB values are approximately (9, 90, 266).
      */
-    public static final Color BOOK_BLUE       = new Color(  9,  90, 166);
+    public static final Color BOOK_BLUE = new Color(9, 90, 166);
     public static final Color BOOK_LIGHT_BLUE = new Color(103, 198, 243);
 
     /**
@@ -74,7 +76,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     public static final Color BOOK_RED = new Color(150, 35, 31);
 
     // default colors
-    private static final Color DEFAULT_PEN_COLOR   = BLACK;
+    private static final Color DEFAULT_PEN_COLOR = BLACK;
     private static final Color DEFAULT_CLEAR_COLOR = WHITE;
 
     // current pen color
@@ -82,7 +84,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
     // default canvas size is DEFAULT_SIZE-by-DEFAULT_SIZE
     private static final int DEFAULT_SIZE = 512;
-    private static int width  = DEFAULT_SIZE;
+    private static int width = DEFAULT_SIZE;
     private static int height = DEFAULT_SIZE;
 
     // default pen radius
@@ -133,13 +135,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     // set of keys currently pressed down
     private static TreeSet<Character> keysDown = new TreeSet<Character>();
 
-
     // not instantiable
-    private StdDraw() { }
-
+    private StdDraw() {
+    }
 
     // static initializer
-    static { init(); }
+    static {
+        init();
+    }
 
     /**
      * Set the window size to the default size 512-by-512 pixels.
@@ -156,7 +159,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      * @throws a RunTimeException if the width or height is 0 or negative
      */
     public static void setCanvasSize(int w, int h) {
-        if (w < 1 || h < 1) throw new RuntimeException("width and height must be positive");
+        if (w < 1 || h < 1)
+            throw new RuntimeException("width and height must be positive");
         width = w;
         height = h;
         init();
@@ -164,12 +168,13 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
     // init
     private static void init() {
-        if (frame != null) frame.setVisible(false);
+        if (frame != null)
+            frame.setVisible(false);
         frame = new JFrame();
         offscreenImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        onscreenImage  = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        onscreenImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         offscreen = offscreenImage.createGraphics();
-        onscreen  = onscreenImage.createGraphics();
+        onscreen = onscreenImage.createGraphics();
         setXscale();
         setYscale();
         offscreen.setColor(DEFAULT_CLEAR_COLOR);
@@ -181,7 +186,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
         // add antialiasing
         RenderingHints hints = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
-                                                  RenderingHints.VALUE_ANTIALIAS_ON);
+                RenderingHints.VALUE_ANTIALIAS_ON);
         hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         offscreen.addRenderingHints(hints);
 
@@ -193,10 +198,11 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw.addMouseMotionListener(std);
 
         frame.setContentPane(draw);
-        frame.addKeyListener(std);    // JLabel cannot get keyboard focus
+        frame.addKeyListener(std); // JLabel cannot get keyboard focus
         frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);            // closes all windows
-        // frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);      // closes only current window
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes all windows
+        // frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // closes only
+        // current window
         frame.setTitle("Standard Draw");
         frame.setJMenuBar(createMenuBar());
         frame.pack();
@@ -212,28 +218,32 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         JMenuItem menuItem1 = new JMenuItem(" Save...   ");
         menuItem1.addActionListener(std);
         menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-                                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         menu.add(menuItem1);
         return menuBar;
     }
 
-
-   /*************************************************************************
-    *  User and screen coordinate systems
-    *************************************************************************/
+    /*************************************************************************
+     * User and screen coordinate systems
+     *************************************************************************/
 
     /**
      * Set the x-scale to be the default (between 0.0 and 1.0).
      */
-    public static void setXscale() { setXscale(DEFAULT_XMIN, DEFAULT_XMAX); }
+    public static void setXscale() {
+        setXscale(DEFAULT_XMIN, DEFAULT_XMAX);
+    }
 
     /**
      * Set the y-scale to be the default (between 0.0 and 1.0).
      */
-    public static void setYscale() { setYscale(DEFAULT_YMIN, DEFAULT_YMAX); }
+    public static void setYscale() {
+        setYscale(DEFAULT_YMIN, DEFAULT_YMAX);
+    }
 
     /**
      * Set the x-scale (a 10% border is added to the values)
+     * 
      * @param min the minimum value of the x-scale
      * @param max the maximum value of the x-scale
      */
@@ -245,6 +255,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
     /**
      * Set the y-scale (a 10% border is added to the values).
+     * 
      * @param min the minimum value of the y-scale
      * @param max the maximum value of the y-scale
      */
@@ -254,21 +265,42 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         ymax = max + BORDER * size;
     }
 
-    // helper functions that scale from user coordinates to screen coordinates and back
-    private static double  scaleX(double x) { return width  * (x - xmin) / (xmax - xmin); }
-    private static double  scaleY(double y) { return height * (ymax - y) / (ymax - ymin); }
-    private static double factorX(double w) { return w * width  / Math.abs(xmax - xmin);  }
-    private static double factorY(double h) { return h * height / Math.abs(ymax - ymin);  }
-    private static double   userX(double x) { return xmin + x * (xmax - xmin) / width;    }
-    private static double   userY(double y) { return ymax - y * (ymax - ymin) / height;   }
+    // helper functions that scale from user coordinates to screen coordinates and
+    // back
+    private static double scaleX(double x) {
+        return width * (x - xmin) / (xmax - xmin);
+    }
 
+    private static double scaleY(double y) {
+        return height * (ymax - y) / (ymax - ymin);
+    }
+
+    private static double factorX(double w) {
+        return w * width / Math.abs(xmax - xmin);
+    }
+
+    private static double factorY(double h) {
+        return h * height / Math.abs(ymax - ymin);
+    }
+
+    private static double userX(double x) {
+        return xmin + x * (xmax - xmin) / width;
+    }
+
+    private static double userY(double y) {
+        return ymax - y * (ymax - ymin) / height;
+    }
 
     /**
      * Clear the screen to the default color (white).
      */
-    public static void clear() { clear(DEFAULT_CLEAR_COLOR); }
+    public static void clear() {
+        clear(DEFAULT_CLEAR_COLOR);
+    }
+
     /**
      * Clear the screen to the given color.
+     * 
      * @param color the Color to make the background
      */
     public static void clear(Color color) {
@@ -281,19 +313,26 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     /**
      * Get the current pen radius.
      */
-    public static double getPenRadius() { return penRadius; }
+    public static double getPenRadius() {
+        return penRadius;
+    }
 
     /**
      * Set the pen size to the default (.002).
      */
-    public static void setPenRadius() { setPenRadius(DEFAULT_PEN_RADIUS); }
+    public static void setPenRadius() {
+        setPenRadius(DEFAULT_PEN_RADIUS);
+    }
+
     /**
      * Set the radius of the pen to the given size.
+     * 
      * @param r the radius of the pen
      * @throws RuntimeException if r is negative
      */
     public static void setPenRadius(double r) {
-        if (r < 0) throw new RuntimeException("pen radius must be positive");
+        if (r < 0)
+            throw new RuntimeException("pen radius must be positive");
         penRadius = r * DEFAULT_SIZE;
         BasicStroke stroke = new BasicStroke((float) penRadius, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
         // BasicStroke stroke = new BasicStroke((float) penRadius);
@@ -303,16 +342,22 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     /**
      * Get the current pen color.
      */
-    public static Color getPenColor() { return penColor; }
+    public static Color getPenColor() {
+        return penColor;
+    }
 
     /**
      * Set the pen color to the default color (black).
      */
-    public static void setPenColor() { setPenColor(DEFAULT_PEN_COLOR); }
+    public static void setPenColor() {
+        setPenColor(DEFAULT_PEN_COLOR);
+    }
+
     /**
      * Set the pen color to the given color. The available pen colors are
      * BLACK, BLUE, CYAN, DARK_GRAY, GRAY, GREEN, LIGHT_GRAY, MAGENTA,
      * ORANGE, PINK, RED, WHITE, and YELLOW.
+     * 
      * @param color the Color to make the pen
      */
     public static void setPenColor(Color color) {
@@ -323,26 +368,33 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     /**
      * Get the current font.
      */
-    public static Font getFont() { return font; }
+    public static Font getFont() {
+        return font;
+    }
 
     /**
      * Set the font to the default font (sans serif, 16 point).
      */
-    public static void setFont() { setFont(DEFAULT_FONT); }
+    public static void setFont() {
+        setFont(DEFAULT_FONT);
+    }
 
     /**
      * Set the font to the given value.
+     * 
      * @param f the font to make text
      */
-    public static void setFont(Font f) { font = f; }
+    public static void setFont(Font f) {
+        font = f;
+    }
 
-
-   /*************************************************************************
-    *  Drawing geometric shapes.
-    *************************************************************************/
+    /*************************************************************************
+     * Drawing geometric shapes.
+     *************************************************************************/
 
     /**
      * Draw a line from (x0, y0) to (x1, y1).
+     * 
      * @param x0 the x-coordinate of the starting point
      * @param y0 the y-coordinate of the starting point
      * @param x1 the x-coordinate of the destination point
@@ -355,6 +407,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
     /**
      * Draw one pixel at (x, y).
+     * 
      * @param x the x-coordinate of the pixel
      * @param y the y-coordinate of the pixel
      */
@@ -364,6 +417,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
     /**
      * Draw a point at (x, y).
+     * 
      * @param x the x-coordinate of the point
      * @param y the y-coordinate of the point
      */
@@ -374,191 +428,233 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         // double ws = factorX(2*r);
         // double hs = factorY(2*r);
         // if (ws <= 1 && hs <= 1) pixel(x, y);
-        if (r <= 1) pixel(x, y);
-        else offscreen.fill(new Ellipse2D.Double(xs - r/2, ys - r/2, r, r));
+        if (r <= 1)
+            pixel(x, y);
+        else
+            offscreen.fill(new Ellipse2D.Double(xs - r / 2, ys - r / 2, r, r));
         draw();
     }
 
     /**
      * Draw a circle of radius r, centered on (x, y).
+     * 
      * @param x the x-coordinate of the center of the circle
      * @param y the y-coordinate of the center of the circle
      * @param r the radius of the circle
      * @throws RuntimeException if the radius of the circle is negative
      */
     public static void circle(double x, double y, double r) {
-        if (r < 0) throw new RuntimeException("circle radius can't be negative");
+        if (r < 0)
+            throw new RuntimeException("circle radius can't be negative");
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*r);
-        double hs = factorY(2*r);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Ellipse2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        double ws = factorX(2 * r);
+        double hs = factorY(2 * r);
+        if (ws <= 1 && hs <= 1)
+            pixel(x, y);
+        else
+            offscreen.draw(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
 
     /**
      * Draw filled circle of radius r, centered on (x, y).
+     * 
      * @param x the x-coordinate of the center of the circle
      * @param y the y-coordinate of the center of the circle
      * @param r the radius of the circle
      * @throws RuntimeException if the radius of the circle is negative
      */
     public static void filledCircle(double x, double y, double r) {
-        if (r < 0) throw new RuntimeException("circle radius can't be negative");
+        if (r < 0)
+            throw new RuntimeException("circle radius can't be negative");
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*r);
-        double hs = factorY(2*r);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.fill(new Ellipse2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        double ws = factorX(2 * r);
+        double hs = factorY(2 * r);
+        if (ws <= 1 && hs <= 1)
+            pixel(x, y);
+        else
+            offscreen.fill(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
 
-
     /**
      * Draw an ellipse with given semimajor and semiminor axes, centered on (x, y).
-     * @param x the x-coordinate of the center of the ellipse
-     * @param y the y-coordinate of the center of the ellipse
+     * 
+     * @param x             the x-coordinate of the center of the ellipse
+     * @param y             the y-coordinate of the center of the ellipse
      * @param semiMajorAxis is the semimajor axis of the ellipse
      * @param semiMinorAxis is the semiminor axis of the ellipse
      * @throws RuntimeException if either of the axes are negative
      */
     public static void ellipse(double x, double y, double semiMajorAxis, double semiMinorAxis) {
-        if (semiMajorAxis < 0) throw new RuntimeException("ellipse semimajor axis can't be negative");
-        if (semiMinorAxis < 0) throw new RuntimeException("ellipse semiminor axis can't be negative");
+        if (semiMajorAxis < 0)
+            throw new RuntimeException("ellipse semimajor axis can't be negative");
+        if (semiMinorAxis < 0)
+            throw new RuntimeException("ellipse semiminor axis can't be negative");
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*semiMajorAxis);
-        double hs = factorY(2*semiMinorAxis);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Ellipse2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        double ws = factorX(2 * semiMajorAxis);
+        double hs = factorY(2 * semiMinorAxis);
+        if (ws <= 1 && hs <= 1)
+            pixel(x, y);
+        else
+            offscreen.draw(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
 
     /**
      * Draw an ellipse with given semimajor and semiminor axes, centered on (x, y).
-     * @param x the x-coordinate of the center of the ellipse
-     * @param y the y-coordinate of the center of the ellipse
+     * 
+     * @param x             the x-coordinate of the center of the ellipse
+     * @param y             the y-coordinate of the center of the ellipse
      * @param semiMajorAxis is the semimajor axis of the ellipse
      * @param semiMinorAxis is the semiminor axis of the ellipse
      * @throws RuntimeException if either of the axes are negative
      */
     public static void filledEllipse(double x, double y, double semiMajorAxis, double semiMinorAxis) {
-        if (semiMajorAxis < 0) throw new RuntimeException("ellipse semimajor axis can't be negative");
-        if (semiMinorAxis < 0) throw new RuntimeException("ellipse semiminor axis can't be negative");
+        if (semiMajorAxis < 0)
+            throw new RuntimeException("ellipse semimajor axis can't be negative");
+        if (semiMinorAxis < 0)
+            throw new RuntimeException("ellipse semiminor axis can't be negative");
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*semiMajorAxis);
-        double hs = factorY(2*semiMinorAxis);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.fill(new Ellipse2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        double ws = factorX(2 * semiMajorAxis);
+        double hs = factorY(2 * semiMinorAxis);
+        if (ws <= 1 && hs <= 1)
+            pixel(x, y);
+        else
+            offscreen.fill(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
 
-
     /**
-     * Draw an arc of radius r, centered on (x, y), from angle1 to angle2 (in degrees).
-     * @param x the x-coordinate of the center of the circle
-     * @param y the y-coordinate of the center of the circle
-     * @param r the radius of the circle
+     * Draw an arc of radius r, centered on (x, y), from angle1 to angle2 (in
+     * degrees).
+     * 
+     * @param x      the x-coordinate of the center of the circle
+     * @param y      the y-coordinate of the center of the circle
+     * @param r      the radius of the circle
      * @param angle1 the starting angle. 0 would mean an arc beginning at 3 o'clock.
      * @param angle2 the angle at the end of the arc. For example, if
-     *        you want a 90 degree arc, then angle2 should be angle1 + 90.
+     *               you want a 90 degree arc, then angle2 should be angle1 + 90.
      * @throws RuntimeException if the radius of the circle is negative
      */
     public static void arc(double x, double y, double r, double angle1, double angle2) {
-        if (r < 0) throw new RuntimeException("arc radius can't be negative");
-        while (angle2 < angle1) angle2 += 360;
+        if (r < 0)
+            throw new RuntimeException("arc radius can't be negative");
+        while (angle2 < angle1)
+            angle2 += 360;
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*r);
-        double hs = factorY(2*r);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Arc2D.Double(xs - ws/2, ys - hs/2, ws, hs, angle1, angle2 - angle1, Arc2D.OPEN));
+        double ws = factorX(2 * r);
+        double hs = factorY(2 * r);
+        if (ws <= 1 && hs <= 1)
+            pixel(x, y);
+        else
+            offscreen.draw(new Arc2D.Double(xs - ws / 2, ys - hs / 2, ws, hs, angle1, angle2 - angle1, Arc2D.OPEN));
         draw();
     }
 
     /**
      * Draw a square of side length 2r, centered on (x, y).
+     * 
      * @param x the x-coordinate of the center of the square
      * @param y the y-coordinate of the center of the square
      * @param r radius is half the length of any side of the square
      * @throws RuntimeException if r is negative
      */
     public static void square(double x, double y, double r) {
-        if (r < 0) throw new RuntimeException("square side length can't be negative");
+        if (r < 0)
+            throw new RuntimeException("square side length can't be negative");
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*r);
-        double hs = factorY(2*r);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Rectangle2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        double ws = factorX(2 * r);
+        double hs = factorY(2 * r);
+        if (ws <= 1 && hs <= 1)
+            pixel(x, y);
+        else
+            offscreen.draw(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
 
     /**
      * Draw a filled square of side length 2r, centered on (x, y).
+     * 
      * @param x the x-coordinate of the center of the square
      * @param y the y-coordinate of the center of the square
      * @param r radius is half the length of any side of the square
      * @throws RuntimeException if r is negative
      */
     public static void filledSquare(double x, double y, double r) {
-        if (r < 0) throw new RuntimeException("square side length can't be negative");
+        if (r < 0)
+            throw new RuntimeException("square side length can't be negative");
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*r);
-        double hs = factorY(2*r);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.fill(new Rectangle2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        double ws = factorX(2 * r);
+        double hs = factorY(2 * r);
+        if (ws <= 1 && hs <= 1)
+            pixel(x, y);
+        else
+            offscreen.fill(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
 
-
     /**
      * Draw a rectangle of given half width and half height, centered on (x, y).
-     * @param x the x-coordinate of the center of the rectangle
-     * @param y the y-coordinate of the center of the rectangle
-     * @param halfWidth is half the width of the rectangle
+     * 
+     * @param x          the x-coordinate of the center of the rectangle
+     * @param y          the y-coordinate of the center of the rectangle
+     * @param halfWidth  is half the width of the rectangle
      * @param halfHeight is half the height of the rectangle
      * @throws RuntimeException if halfWidth or halfHeight is negative
      */
     public static void rectangle(double x, double y, double halfWidth, double halfHeight) {
-        if (halfWidth  < 0) throw new RuntimeException("half width can't be negative");
-        if (halfHeight < 0) throw new RuntimeException("half height can't be negative");
+        if (halfWidth < 0)
+            throw new RuntimeException("half width can't be negative");
+        if (halfHeight < 0)
+            throw new RuntimeException("half height can't be negative");
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*halfWidth);
-        double hs = factorY(2*halfHeight);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Rectangle2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        double ws = factorX(2 * halfWidth);
+        double hs = factorY(2 * halfHeight);
+        if (ws <= 1 && hs <= 1)
+            pixel(x, y);
+        else
+            offscreen.draw(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
 
     /**
-     * Draw a filled rectangle of given half width and half height, centered on (x, y).
-     * @param x the x-coordinate of the center of the rectangle
-     * @param y the y-coordinate of the center of the rectangle
-     * @param halfWidth is half the width of the rectangle
+     * Draw a filled rectangle of given half width and half height, centered on (x,
+     * y).
+     * 
+     * @param x          the x-coordinate of the center of the rectangle
+     * @param y          the y-coordinate of the center of the rectangle
+     * @param halfWidth  is half the width of the rectangle
      * @param halfHeight is half the height of the rectangle
      * @throws RuntimeException if halfWidth or halfHeight is negative
      */
     public static void filledRectangle(double x, double y, double halfWidth, double halfHeight) {
-        if (halfWidth  < 0) throw new RuntimeException("half width can't be negative");
-        if (halfHeight < 0) throw new RuntimeException("half height can't be negative");
+        if (halfWidth < 0)
+            throw new RuntimeException("half width can't be negative");
+        if (halfHeight < 0)
+            throw new RuntimeException("half height can't be negative");
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*halfWidth);
-        double hs = factorY(2*halfHeight);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.fill(new Rectangle2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        double ws = factorX(2 * halfWidth);
+        double hs = factorY(2 * halfHeight);
+        if (ws <= 1 && hs <= 1)
+            pixel(x, y);
+        else
+            offscreen.fill(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
 
-
     /**
      * Draw a polygon with the given (x[i], y[i]) coordinates.
+     * 
      * @param x an array of all the x-coordindates of the polygon
      * @param y an array of all the y-coordindates of the polygon
      */
@@ -575,6 +671,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
     /**
      * Draw a filled polygon with the given (x[i], y[i]) coordinates.
+     * 
      * @param x an array of all the x-coordindates of the polygon
      * @param y an array of all the y-coordindates of the polygon
      */
@@ -589,11 +686,9 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         draw();
     }
 
-
-
-   /*************************************************************************
-    *  Drawing images.
-    *************************************************************************/
+    /*************************************************************************
+     * Drawing images.
+     *************************************************************************/
 
     // get an image from the given filename
     private static Image getImage(String filename) {
@@ -606,13 +701,15 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
             try {
                 URL url = new URL(filename);
                 icon = new ImageIcon(url);
-            } catch (Exception e) { /* not a url */ }
+            } catch (Exception e) {
+                /* not a url */ }
         }
 
         // in case file is inside a .jar
         if ((icon == null) || (icon.getImageLoadStatus() != MediaTracker.COMPLETE)) {
             URL url = StdDraw.class.getResource(filename);
-            if (url == null) throw new RuntimeException("image " + filename + " not found");
+            if (url == null)
+                throw new RuntimeException("image " + filename + " not found");
             icon = new ImageIcon(url);
         }
 
@@ -621,6 +718,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
     /**
      * Draw picture (gif, jpg, or png) centered on (x, y).
+     * 
      * @param x the center x-coordinate of the image
      * @param y the center y-coordinate of the image
      * @param s the name of the image/picture, e.g., "ball.gif"
@@ -632,18 +730,20 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         double ys = scaleY(y);
         int ws = image.getWidth(null);
         int hs = image.getHeight(null);
-        if (ws < 0 || hs < 0) throw new RuntimeException("image " + s + " is corrupt");
+        if (ws < 0 || hs < 0)
+            throw new RuntimeException("image " + s + " is corrupt");
 
-        offscreen.drawImage(image, (int) Math.round(xs - ws/2.0), (int) Math.round(ys - hs/2.0), null);
+        offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0), (int) Math.round(ys - hs / 2.0), null);
         draw();
     }
 
     /**
      * Draw picture (gif, jpg, or png) centered on (x, y),
      * rotated given number of degrees
-     * @param x the center x-coordinate of the image
-     * @param y the center y-coordinate of the image
-     * @param s the name of the image/picture, e.g., "ball.gif"
+     * 
+     * @param x       the center x-coordinate of the image
+     * @param y       the center y-coordinate of the image
+     * @param s       the name of the image/picture, e.g., "ball.gif"
      * @param degrees is the number of degrees to rotate counterclockwise
      * @throws RuntimeException if the image is corrupt
      */
@@ -653,10 +753,11 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         double ys = scaleY(y);
         int ws = image.getWidth(null);
         int hs = image.getHeight(null);
-        if (ws < 0 || hs < 0) throw new RuntimeException("image " + s + " is corrupt");
+        if (ws < 0 || hs < 0)
+            throw new RuntimeException("image " + s + " is corrupt");
 
         offscreen.rotate(Math.toRadians(-degrees), xs, ys);
-        offscreen.drawImage(image, (int) Math.round(xs - ws/2.0), (int) Math.round(ys - hs/2.0), null);
+        offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0), (int) Math.round(ys - hs / 2.0), null);
         offscreen.rotate(Math.toRadians(+degrees), xs, ys);
 
         draw();
@@ -664,6 +765,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
     /**
      * Draw picture (gif, jpg, or png) centered on (x, y), rescaled to w-by-h.
+     * 
      * @param x the center x coordinate of the image
      * @param y the center y coordinate of the image
      * @param s the name of the image/picture, e.g., "ball.gif"
@@ -676,30 +778,34 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         Image image = getImage(s);
         double xs = scaleX(x);
         double ys = scaleY(y);
-        if (w < 0) throw new RuntimeException("width is negative: " + w);
-        if (h < 0) throw new RuntimeException("height is negative: " + h);
+        if (w < 0)
+            throw new RuntimeException("width is negative: " + w);
+        if (h < 0)
+            throw new RuntimeException("height is negative: " + h);
         double ws = factorX(w);
         double hs = factorY(h);
-        if (ws < 0 || hs < 0) throw new RuntimeException("image " + s + " is corrupt");
-        if (ws <= 1 && hs <= 1) pixel(x, y);
+        if (ws < 0 || hs < 0)
+            throw new RuntimeException("image " + s + " is corrupt");
+        if (ws <= 1 && hs <= 1)
+            pixel(x, y);
         else {
-            offscreen.drawImage(image, (int) Math.round(xs - ws/2.0),
-                                       (int) Math.round(ys - hs/2.0),
-                                       (int) Math.round(ws),
-                                       (int) Math.round(hs), null);
+            offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0),
+                    (int) Math.round(ys - hs / 2.0),
+                    (int) Math.round(ws),
+                    (int) Math.round(hs), null);
         }
         draw();
     }
 
-
     /**
      * Draw picture (gif, jpg, or png) centered on (x, y), rotated
      * given number of degrees, rescaled to w-by-h.
-     * @param x the center x-coordinate of the image
-     * @param y the center y-coordinate of the image
-     * @param s the name of the image/picture, e.g., "ball.gif"
-     * @param w the width of the image
-     * @param h the height of the image
+     * 
+     * @param x       the center x-coordinate of the image
+     * @param y       the center y-coordinate of the image
+     * @param s       the name of the image/picture, e.g., "ball.gif"
+     * @param w       the width of the image
+     * @param h       the height of the image
      * @param degrees is the number of degrees to rotate counterclockwise
      * @throws RuntimeException if the image is corrupt
      */
@@ -709,26 +815,28 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         double ys = scaleY(y);
         double ws = factorX(w);
         double hs = factorY(h);
-        if (ws < 0 || hs < 0) throw new RuntimeException("image " + s + " is corrupt");
-        if (ws <= 1 && hs <= 1) pixel(x, y);
+        if (ws < 0 || hs < 0)
+            throw new RuntimeException("image " + s + " is corrupt");
+        if (ws <= 1 && hs <= 1)
+            pixel(x, y);
 
         offscreen.rotate(Math.toRadians(-degrees), xs, ys);
-        offscreen.drawImage(image, (int) Math.round(xs - ws/2.0),
-                                   (int) Math.round(ys - hs/2.0),
-                                   (int) Math.round(ws),
-                                   (int) Math.round(hs), null);
+        offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0),
+                (int) Math.round(ys - hs / 2.0),
+                (int) Math.round(ws),
+                (int) Math.round(hs), null);
         offscreen.rotate(Math.toRadians(+degrees), xs, ys);
 
         draw();
     }
 
-
-   /*************************************************************************
-    *  Drawing text.
-    *************************************************************************/
+    /*************************************************************************
+     * Drawing text.
+     *************************************************************************/
 
     /**
      * Write the given text string in the current font, centered on (x, y).
+     * 
      * @param x the center x-coordinate of the text
      * @param y the center y-coordinate of the text
      * @param s the text
@@ -740,16 +848,17 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         double ys = scaleY(y);
         int ws = metrics.stringWidth(s);
         int hs = metrics.getDescent();
-        offscreen.drawString(s, (float) (xs - ws/2.0), (float) (ys + hs));
+        offscreen.drawString(s, (float) (xs - ws / 2.0), (float) (ys + hs));
         draw();
     }
 
     /**
      * Write the given text string in the current font, centered on (x, y) and
      * rotated by the specified number of degrees
-     * @param x the center x-coordinate of the text
-     * @param y the center y-coordinate of the text
-     * @param s the text
+     * 
+     * @param x       the center x-coordinate of the text
+     * @param y       the center y-coordinate of the text
+     * @param s       the text
      * @param degrees is the number of degrees to rotate counterclockwise
      */
     public static void text(double x, double y, String s, double degrees) {
@@ -760,9 +869,9 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         offscreen.rotate(Math.toRadians(+degrees), xs, ys);
     }
 
-
     /**
      * Write the given text string in the current font, left-aligned at (x, y).
+     * 
      * @param x the x-coordinate of the text
      * @param y the y-coordinate of the text
      * @param s the text
@@ -780,6 +889,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
     /**
      * Write the given text string in the current font, right-aligned at (x, y).
+     * 
      * @param x the x-coordinate of the text
      * @param y the y-coordinate of the text
      * @param s the text
@@ -795,33 +905,37 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         show();
     }
 
-
-
     /**
      * Display on screen, pause for t milliseconds, and turn on
      * <em>animation mode</em>: subsequent calls to
-     * drawing methods such as <tt>line()</tt>, <tt>circle()</tt>, and <tt>square()</tt>
+     * drawing methods such as <tt>line()</tt>, <tt>circle()</tt>, and
+     * <tt>square()</tt>
      * will not be displayed on screen until the next call to <tt>show()</tt>.
-     * This is useful for producing animations (clear the screen, draw a bunch of shapes,
+     * This is useful for producing animations (clear the screen, draw a bunch of
+     * shapes,
      * display on screen for a fixed amount of time, and repeat). It also speeds up
      * drawing a huge number of shapes (call <tt>show(0)</tt> to defer drawing
      * on screen, draw the shapes, and call <tt>show(0)</tt> to display them all
      * on screen at once).
+     * 
      * @param t number of milliseconds
      */
     public static void show(int t) {
         defer = false;
         draw();
-        try { Thread.currentThread().sleep(t); }
-        catch (InterruptedException e) { System.out.println("Error sleeping"); }
+        try {
+            Thread.currentThread().sleep(t);
+        } catch (InterruptedException e) {
+            System.out.println("Error sleeping");
+        }
         defer = true;
     }
-
 
     /**
      * Display on-screen and turn off animation mode:
      * subsequent calls to
-     * drawing methods such as <tt>line()</tt>, <tt>circle()</tt>, and <tt>square()</tt>
+     * drawing methods such as <tt>line()</tt>, <tt>circle()</tt>, and
+     * <tt>square()</tt>
      * will be displayed on screen when called. This is the default.
      */
     public static void show() {
@@ -831,18 +945,19 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
     // draw onscreen if defer is false
     private static void draw() {
-        if (defer) return;
+        if (defer)
+            return;
         onscreen.drawImage(offscreenImage, 0, 0, null);
         frame.repaint();
     }
 
-
-   /*************************************************************************
-    *  Save drawing to a file.
-    *************************************************************************/
+    /*************************************************************************
+     * Save drawing to a file.
+     *************************************************************************/
 
     /**
      * Save to file - suffix must be png, jpg, or gif.
+     * 
      * @param filename the name of the file with one of the required suffixes
      */
     public static void save(String filename) {
@@ -851,31 +966,37 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
         // png files
         if (suffix.toLowerCase().equals("png")) {
-            try { ImageIO.write(offscreenImage, suffix, file); }
-            catch (IOException e) { e.printStackTrace(); }
+            try {
+                ImageIO.write(offscreenImage, suffix, file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         // need to change from ARGB to RGB for jpeg
-        // reference: http://archives.java.sun.com/cgi-bin/wa?A2=ind0404&L=java2d-interest&D=0&P=2727
+        // reference:
+        // http://archives.java.sun.com/cgi-bin/wa?A2=ind0404&L=java2d-interest&D=0&P=2727
         else if (suffix.toLowerCase().equals("jpg")) {
             WritableRaster raster = offscreenImage.getRaster();
             WritableRaster newRaster;
-            newRaster = raster.createWritableChild(0, 0, width, height, 0, 0, new int[] {0, 1, 2});
+            newRaster = raster.createWritableChild(0, 0, width, height, 0, 0, new int[] { 0, 1, 2 });
             DirectColorModel cm = (DirectColorModel) offscreenImage.getColorModel();
             DirectColorModel newCM = new DirectColorModel(cm.getPixelSize(),
-                                                          cm.getRedMask(),
-                                                          cm.getGreenMask(),
-                                                          cm.getBlueMask());
-            BufferedImage rgbBuffer = new BufferedImage(newCM, newRaster, false,  null);
-            try { ImageIO.write(rgbBuffer, suffix, file); }
-            catch (IOException e) { e.printStackTrace(); }
+                    cm.getRedMask(),
+                    cm.getGreenMask(),
+                    cm.getBlueMask());
+            BufferedImage rgbBuffer = new BufferedImage(newCM, newRaster, false, null);
+            try {
+                ImageIO.write(rgbBuffer, suffix, file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         else {
             System.out.println("Invalid image file type: " + suffix);
         }
     }
-
 
     /**
      * This method cannot be called directly.
@@ -889,13 +1010,13 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         }
     }
 
-
-   /*************************************************************************
-    *  Mouse interactions.
-    *************************************************************************/
+    /*************************************************************************
+     * Mouse interactions.
+     *************************************************************************/
 
     /**
      * Is the mouse being pressed?
+     * 
      * @return true or false
      */
     public static boolean mousePressed() {
@@ -906,6 +1027,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
     /**
      * What is the x-coordinate of the mouse?
+     * 
      * @return the value of the x-coordinate of the mouse
      */
     public static double mouseX() {
@@ -916,6 +1038,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
     /**
      * What is the y-coordinate of the mouse?
+     * 
      * @return the value of the y-coordinate of the mouse
      */
     public static double mouseY() {
@@ -924,21 +1047,23 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         }
     }
 
+    /**
+     * This method cannot be called directly.
+     */
+    public void mouseClicked(MouseEvent e) {
+    }
 
     /**
      * This method cannot be called directly.
      */
-    public void mouseClicked(MouseEvent e) { }
+    public void mouseEntered(MouseEvent e) {
+    }
 
     /**
      * This method cannot be called directly.
      */
-    public void mouseEntered(MouseEvent e) { }
-
-    /**
-     * This method cannot be called directly.
-     */
-    public void mouseExited(MouseEvent e) { }
+    public void mouseExited(MouseEvent e) {
+    }
 
     /**
      * This method cannot be called directly.
@@ -963,7 +1088,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     /**
      * This method cannot be called directly.
      */
-    public void mouseDragged(MouseEvent e)  {
+    public void mouseDragged(MouseEvent e) {
         synchronized (mouseLock) {
             mouseX = StdDraw.userX(e.getX());
             mouseY = StdDraw.userY(e.getY());
@@ -980,13 +1105,13 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         }
     }
 
-
-   /*************************************************************************
-    *  Keyboard interactions.
-    *************************************************************************/
+    /*************************************************************************
+     * Keyboard interactions.
+     *************************************************************************/
 
     /**
      * Has the user typed a key?
+     * 
      * @return true if the user has typed a key, false otherwise
      */
     public static boolean hasNextKeyTyped() {
@@ -997,6 +1122,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
     /**
      * What is the next key that was typed by the user?
+     * 
      * @return the next key typed
      */
     public static char nextKeyTyped() {
@@ -1007,12 +1133,12 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
     /**
      * Is the key ch currently being pressed?
+     * 
      * @return true if ch is currently being pressed, false otherwise
      */
     public static boolean isKeyPressed(char ch) {
         return keysDown.contains(ch);
     }
-
 
     /**
      * This method cannot be called directly.
@@ -1037,8 +1163,56 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         keysDown.remove(e.getKeyChar());
     }
 
+    public static final class Position {
+        public double x;
+        public double y;
 
+        public Position(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
 
+    static void variante1(
+            double x, double y, double len, double phi, int i) {
+        if (i == 0)
+            return;
+        double delta = Math.PI / 360 * 30;
+        double s = len * Math.sin(phi);
+        double c = len * Math.cos(phi);
+
+        // Quadrat
+        Position B = new Position(x + c, y + s);
+        Position C = new Position(x + c - s, y + s + c);
+        Position D = new Position(x - s, y + c);
+
+        // Dreieck
+        double u = len * Math.cos(delta);
+        double v = len * Math.sin(delta);
+        double ex = u * Math.cos(phi + delta);
+        double ey = u * Math.sin(phi + delta);
+        Position E = new Position(D.x + ex, D.y + ey);
+        // Dreieck
+        StdDraw.line(D.x, D.y, E.x, E.y);
+        StdDraw.line(C.x, C.y, E.x, E.y);
+        // Quadrad
+        StdDraw.line(x, y, D.x, D.y);
+        StdDraw.line(x, y, B.x, B.y);
+        StdDraw.line(D.x, D.y, C.x, C.y);
+        StdDraw.line(C.x, C.y, B.x, B.y);
+        variante1(D.x, D.y, len * 0.98, phi + delta, i - 1);
+        double alpha = Math.cosh((Math.abs(E.x - C.x) / v));
+        variante1(E.x, E.y, v, phi-alpha, i - 1);
+    }
+
+    // static Position smallHelperB(double phi, int len, double x, double y) {
+    // phi = Math.PI / 360 * phi;
+    // double s = len * Math.sin(phi);
+    // double c = len * Math.cos(phi);
+    //
+    // Position B = new Position(x + c, y + s);
+    // return B;
+    // }
 
     /**
      * Test client.
@@ -1046,30 +1220,39 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     public static void main(String[] args) {
 
         // set the scale of the coordinate system
-        StdDraw.setXscale(0, 10);
-        StdDraw.setYscale(0, 10);
+        StdDraw.setXscale(-20, 20);
+        StdDraw.setYscale(-20, 20);
 
-        // Draw line
-        StdDraw.line(1, 1, 8, 8);
+        // // Draw line2b
+        // StdDraw.line(1, 1, 8, 8);
+        //
+        // // Draw square
+        // StdDraw.setPenColor(StdDraw.RED);
+        // StdDraw.setPenRadius(.01);
+        // StdDraw.square(3, 3, 2);
+        //
+        // // Draw filled Square
+        // StdDraw.setPenColor(StdDraw.BLUE);
+        // StdDraw.filledSquare(5, 8, 2);
+        //
+        // // Draw Circle
+        // StdDraw.setPenColor(StdDraw.BLACK);
+        // StdDraw.setPenRadius();
+        // StdDraw.circle(5, 5, 2);
+        //
+        // // text
+        // StdDraw.setPenColor(StdDraw.BLACK);
+        // StdDraw.text(6, 1, "black text");
+        int len = 5;
+        double x = 0.0;
+        double y = 0.0;
+        double phi = Math.PI / 360 * 30;
+        int tries = 10;
 
-        // Draw square
-        StdDraw.setPenColor(StdDraw.RED);
-        StdDraw.setPenRadius(.01);
-        StdDraw.square(3, 3, 2);
-
-        // Draw filled Square
-        StdDraw.setPenColor(StdDraw.BLUE);
-        StdDraw.filledSquare(5, 8, 2);
-
-        // Draw Circle
-        StdDraw.setPenColor(StdDraw.BLACK);
-        StdDraw.setPenRadius();
-        StdDraw.circle(5, 5, 2);
-
-        // text
-        StdDraw.setPenColor(StdDraw.BLACK);
-        StdDraw.text(6, 1, "black text");
+        StdDraw.show(0);
+        // Position B = smallHelperB(phi, len, x, y);
+        variante1(x, y, len, phi, tries);
+        StdDraw.show(0);
     }
 
 }
-
