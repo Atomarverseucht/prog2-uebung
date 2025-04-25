@@ -1174,12 +1174,13 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     }
 
     static void variante1(
-            double x, double y, double len, double phi, int i) {
+            double x, double y, double len, double phi, double penRad, int i) {
         if (i == 0)
             return;
         double delta = Math.PI / 360 * 30;
         double s = len * Math.sin(phi);
         double c = len * Math.cos(phi);
+        StdDraw.setPenRadius(penRad);
 
         // Quadrat
         Position B = new Position(x + c, y + s);
@@ -1193,16 +1194,18 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         double ey = u * Math.sin(phi + delta);
         Position E = new Position(D.x + ex, D.y + ey);
         // Dreieck
+        StdDraw.setPenColor(StdDraw.RED);
         StdDraw.line(D.x, D.y, E.x, E.y);
         StdDraw.line(C.x, C.y, E.x, E.y);
         // Quadrad
+        StdDraw.setPenColor(StdDraw.BLACK);
         StdDraw.line(x, y, D.x, D.y);
         StdDraw.line(x, y, B.x, B.y);
         StdDraw.line(D.x, D.y, C.x, C.y);
         StdDraw.line(C.x, C.y, B.x, B.y);
-        variante1(D.x, D.y, len * 0.98, phi + delta, i - 1);
+        variante1(D.x, D.y, len * 0.98, phi + delta, penRad/1.02, i - 1);
         double alpha = Math.cosh((Math.abs(E.x - C.x) / v));
-        variante1(E.x, E.y, v, phi-alpha, i - 1);
+        variante1(E.x, E.y, v, phi-alpha, penRad/1.4, i - 1);
     }
 
     // static Position smallHelperB(double phi, int len, double x, double y) {
@@ -1247,12 +1250,12 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         double x = 0.0;
         double y = 0.0;
         double phi = Math.PI / 360 * 30;
-        int tries = 10;
+        int tries = 30;
+        double penRad = 0.002;
 
-        StdDraw.show(0);
-        // Position B = smallHelperB(phi, len, x, y);
-        variante1(x, y, len, phi, tries);
-        StdDraw.show(0);
+        // StdDraw.show(0);
+        variante1(x, y, len, phi, penRad, tries);
+        // StdDraw.show(0);
     }
 
 }
