@@ -12,7 +12,8 @@ public class PythagorasTree {
         StdDraw.setYscale(0, h);
         // StdDraw.filledRectangle(0.1,0.1,0.5,0.3);
         // StdDraw.square(0.1,0.1,0.1);
-        v1(2, Math.toRadians(20), new Position(700,200), new Position(800, 200));
+        //v1(2, Math.toRadians(20), new Position(700,200), new Position(800, 200));
+        v2(2, new Position(550,0), new Position(600, 0));
     }
 
     /// @param angle Winkel in Bogenmaß
@@ -28,6 +29,30 @@ public class PythagorasTree {
         v1(minLength, angle, p[2], p[1]);
     }
 
+    public static void v2(double minLength, Position p1, Position p2){
+        if(p1.deltaAmount(p2) <= minLength){ return;}
+        StdDraw.setPenColor(new Color(175, 50, 0));
+        if(p1.deltaAmount(p2) <= 10){
+            StdDraw.setPenColor(Color.green);
+        }
+        Position[] p = drawRotatedRect(p1, p2);
+        p = drawRotatedTriangle(p[3], p[2], (Math.random()/2)*Math.PI);
+        v2(minLength, p[0], p[2]);
+        v2(minLength, p[2], p[1]);
+    }
+
+    public static Position[] drawRotatedRect(Position a, Position b){
+        Position delta = a.deltaPosition(b);
+        double v = Math.random()*3 + 0.1;
+        Position d = new Position(a.x() - v * delta.y(), a.y() + v* delta.x());
+        Position c = new Position(b.x() - v * delta.y(), b.y() + v* delta.x());
+        a.drawLine(b);
+        b.drawLine(c);
+        c.drawLine(d);
+        d.drawLine(a);
+        Position[] pos = {a,b,c,d};
+        return pos;
+    }
     public static Position[] drawRotatedSquare(Position a, Position b){
 
         Position delta = a.deltaPosition(b);
