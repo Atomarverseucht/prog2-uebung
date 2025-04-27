@@ -8,8 +8,8 @@ public final class Position {
 
     public Position deltaPosition(Position p1){
         double x, y;
-        y = Math.abs(p1.y - this.y);
-        x = Math.abs(p1.x - this.x);
+        y = p1.y - this.y;
+        x = p1.x - this.x;
         return new Position(x,y);
     }
 
@@ -21,6 +21,7 @@ public final class Position {
     public double amount(){
         return Math.sqrt(x * x + y * y);
     }
+
     public Position (double x, double y){
         this.x = x;
         this.y = y;
