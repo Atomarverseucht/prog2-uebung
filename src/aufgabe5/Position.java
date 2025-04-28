@@ -21,6 +21,7 @@ public final class Position {
     public double amount(){
         return Math.sqrt(x * x + y * y);
     }
+
     public Position (double x, double y){
         this.x = x;
         this.y = y;
