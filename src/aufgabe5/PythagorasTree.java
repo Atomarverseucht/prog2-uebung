@@ -12,8 +12,8 @@ public class PythagorasTree {
         StdDraw.setYscale(0, h);
         // StdDraw.filledRectangle(0.1,0.1,0.5,0.3);
         // StdDraw.square(0.1,0.1,0.1);
-        //v1(2, Math.toRadians(20), new Position(700,200), new Position(800, 200));
-        v2(2, new Position(550,0), new Position(600, 0));
+        v1(2, Math.toRadians(20), new Position(700,200), new Position(800, 200));
+        //v2(2, new Position(550,0), new Position(600, 0));
     }
 
     /// @param angle Winkel in Bogenmaß
