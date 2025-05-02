@@ -7,7 +7,7 @@ package aufgabe6.p1;
  * @since 1.3.2012
  */
 public class TaetigkeitenTest {
-/*
+
 	public static void main(String[] args) {
 		Taetigkeit tk1 = new ParalleleTaetigkeit();
 		tk1.add(new ElementareTaetigkeit("Linke Seitenwand montieren", 5.0));
@@ -23,5 +23,5 @@ public class TaetigkeitenTest {
 		System.out.println(schrankMontage.getTime() + " min");   // 28.0 min
 		System.out.println(schrankMontage.getAnzahl());			// 6
 		System.out.println(schrankMontage);
-	}*/
+	}
 }

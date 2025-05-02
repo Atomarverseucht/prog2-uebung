@@ -14,5 +14,18 @@ public class ElementareTaetigkeit implements Taetigkeit {
         return time;
     }
 
+    @Override
+    public int getAnzahl(){
+        return 1;
+    }
 
+    @Override
+    public void add(Taetigkeit t){
+
+    }
+
+    @Override
+    public void remove(Taetigkeit t){
+
+    }
 }
