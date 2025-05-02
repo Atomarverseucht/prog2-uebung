@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Person {
     final String name;
-    private List<Buch> ausgelieheneBuecher = new LinkedList<>();
+    private final List<Buch> ausgelieheneBuecher = new LinkedList<>();
 
     public Person(String name){
         this.name = name;
