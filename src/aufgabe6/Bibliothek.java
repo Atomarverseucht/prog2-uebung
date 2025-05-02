@@ -2,7 +2,7 @@
 package aufgabe6;
 // Part 2
 public class Bibliothek {
-/*
+
 	public static void main(String[] args) {
 		Buch b1 = new Buch("Tod auf dem Nil");
 		Buch b2 = new Buch("Alibi");
@@ -37,5 +37,4 @@ public class Bibliothek {
 		b2.print(); // Alibi: nicht ausgeliehen
 		b3.print(); // Mord im Orientexpress: nicht ausgeliehen
 	}
-	*/
 }

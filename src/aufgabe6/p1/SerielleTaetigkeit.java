@@ -3,6 +3,15 @@ package aufgabe6.p1;
 public class SerielleTaetigkeit extends ZusammengesetzteTaetigkeit {
     @Override
     public double getTime(){
-        return 1;
+        double out = 0;
+        for(Taetigkeit t : meineTaetigkeiten){
+            out += t.getTime();
+        }
+        return out;
+    }
+
+    @Override
+    public String toString(){
+        return "Serielle Tätigkeit: " + super.toString();
     }
 }
