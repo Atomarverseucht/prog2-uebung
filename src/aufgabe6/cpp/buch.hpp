@@ -1,46 +1,36 @@
 #ifndef BUCH_HPP
 #define BUCH_HPP
 
+#include "person.hpp"
 #include <iostream>
 #include <string>
 
-class buch {
+namespace aufgabe6 {
+
+class Person;
+
+class Buch {
 private:
-  person* entleiher;
+  Person *entleiher;
+  std::string name;
 
 public:
-  std::string name;
-  buch(const std::string&);
-  buch(const buch&) = delete;
-  buch &operator=(const buch&) = delete;
-  buch(buch&&) = delete;
-  buch &operator=(buch&&) = delete;
-  // ~buch() = default;
+  Buch(const std::string &);
+  Buch(const Buch &) = delete;
+  Buch &operator=(const Buch &) = delete;
+  Buch(Buch &&) = delete;
+  Buch &operator=(Buch &&) = delete;
+  // ~Buch() = default;
 
   // member functions
-  void printf(void) {
-    std::cout << name
-              << (entleiher == nullptr ? ": nicht ausgeliehen"
-                                       : "ausgeliehen von " << entleiher);
-  }
-  std::string getName(void) { return name; }
-  person* getEntleiher(void) { return entleiher; }
-  bool wirdAusgeliehen(person* p) {
-    if (entleiher != nullptr) {
-      return false;
-    }
-    entleiher = p;
-    p.leihtAus(this);
-    return true;
-  }
-  bool wirdZurueckGegeben(void) {
-    if (entleiher == nullptr) {
-      return false;
-    }
-    entleiher.gibtZurueck(this);
-    entleiher = nullptr;
-    return true;
-  }
+  void print();
+  std::string getName() const;
+  Person *getEntleiher();
+  bool wirdAusgeliehen(Person *p);
+  bool wirdZurueckGegeben();
+  friend std::ostream& operator<<(std::ostream& os, const Buch& b);
 };
+// std::ostream &operator<<(std::ostream &os, const Buch &b);
+} // namespace aufgabe6
 
 #endif
