@@ -41,7 +41,7 @@ public class BitonicArrayTest {
             }
             System.out.println("Cumulative times (" + numTrials + " trials): ");
             System.out.println("Iterative = " + (totalIterativeTime / 1_000) +
-                    " microsec, Divide-Conquer = " + (totalDivideConquerTime / 1_000) + " microsec");
+                    " microsec, Divide-Conquer = " + (totalDivideConquerTime / 1_000) + " microsec + count: " + BitonicArray.count);
         }
     }
 
