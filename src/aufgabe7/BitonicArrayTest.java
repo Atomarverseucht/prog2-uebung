@@ -17,6 +17,7 @@ public class BitonicArrayTest {
 
             long totalIterativeTime = 0;
             long totalDivideConquerTime = 0;
+            int countDC = 0;
 
             for (int trial = 0; trial < numTrials; trial++) {
                 // Generate a random bitonic array
@@ -33,6 +34,7 @@ public class BitonicArrayTest {
                 int peakDivideConquer = BitonicArray.findPeakDivideAndConquer(array);
                 long divideConquerTime = System.nanoTime() - startTime;
                 totalDivideConquerTime += divideConquerTime;
+                countDC += BitonicArray.count;
 
                 // Verify both solutions found the same peak
                 if (peakIterative != peakDivideConquer) {
@@ -41,7 +43,7 @@ public class BitonicArrayTest {
             }
             System.out.println("Cumulative times (" + numTrials + " trials): ");
             System.out.println("Iterative = " + (totalIterativeTime / 1_000) +
-                    " microsec, Divide-Conquer = " + (totalDivideConquerTime / 1_000) + " microsec + count: " + BitonicArray.count);
+                    " microsec, Divide-Conquer = " + (totalDivideConquerTime / 1_000) + " microsec + count: " + countDC / numTrials);
         }
     }
 

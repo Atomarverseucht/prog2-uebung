@@ -48,10 +48,63 @@ public class LinkedList {
         return builder.toString();
     }
 
+    public LinkedList[] split(){
+        int mid = size / 2;
+        Node alt = head;
+        for (int i = 1; i < mid; i++) {
+            alt = alt.next;
+        }
+        Node neu = alt.next;
+        alt.next = null;
+
+        LinkedList n = new LinkedList();
+        n.head = neu;
+        size = mid + (size % 2);
+        n.size = mid;
+        LinkedList[] out = {this, n};
+        return out;
+    }
 
     public LinkedList mergeSort() {
         // hier fehlt Ihr Code
-        return this;
+        if(this.size == 1){
+            return this;
+        }
+
+        // Teile | Divide
+        LinkedList[] parts = split();
+        LinkedList la = parts[0].mergeSort();
+        LinkedList lb = parts[1].mergeSort();
+
+        // Herrsche | Conquer
+        return sortLists(la, lb);
+    }
+
+    private static LinkedList sortLists(LinkedList a, LinkedList b){
+        Node na = a.head;
+        Node nb = b.head;
+        Node prev = null;
+        a.size += b.size;
+
+        while(nb != null){
+            if(na == null || na.value >= nb.value){
+                Node p = nb.next;
+                if(prev == null){
+                    Node n = a.head;
+                    a.head = nb;
+                    a.head.next = n;
+                } else{
+                    prev.next = nb;
+                    nb.next = na;
+                }
+                nb = p;
+            } else{
+                prev = na;
+                na = na.next;
+            }
+        }
+        System.out.println(a);
+        return a;
     }
 
 }
