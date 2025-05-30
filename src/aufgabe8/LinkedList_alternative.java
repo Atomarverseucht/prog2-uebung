@@ -5,7 +5,7 @@ package aufgabe8;
  * @author Oliver Haase
  */
 
-public class LinkedList {
+public class LinkedList_alternative {
     private static class Node {
         int value;
         Node next;
@@ -19,12 +19,12 @@ public class LinkedList {
     private Node head;
     private int size;
 
-    public LinkedList() {
+    public LinkedList_alternative() {
         head = null;
         size = 0;
     }
 
-    public LinkedList add(int value) {
+    public LinkedList_alternative add(int value) {
         head = new Node(value, head);
         size++;
         return this;
@@ -47,7 +47,7 @@ public class LinkedList {
         return builder.toString();
     }
 
-    public LinkedList[] split() {
+    public LinkedList_alternative[] split() {
         int mid = size / 2;
         Node alt = head;
         for (int i = 1; i < mid; i++) {
@@ -56,34 +56,34 @@ public class LinkedList {
         Node neu = alt.next;
         alt.next = null;
 
-        LinkedList n = new LinkedList();
+        LinkedList_alternative n = new LinkedList_alternative();
         n.head = neu;
         size = mid + (size % 2);
         n.size = mid;
-        LinkedList[] out = { this, n };
+        LinkedList_alternative[] out = { this, n };
         return out;
     }
 
-    public LinkedList mergeSort() {
+    public LinkedList_alternative mergeSort() {
         // hier fehlt Ihr Code
         if (this.size == 1) {
             return this;
         }
 
         // Teile | Divide
-        LinkedList[] parts = split();
-        LinkedList la = parts[0].mergeSort();
-        LinkedList lb = parts[1].mergeSort();
+        LinkedList_alternative[] parts = split();
+        LinkedList_alternative la = parts[0].mergeSort();
+        LinkedList_alternative lb = parts[1].mergeSort();
 
         // Herrsche | Conquer
-        LinkedList merged = sortLists(la, lb);
+        LinkedList_alternative merged = sortLists(la, lb);
         this.head = merged.head;
         this.size = merged.size;
         return this;
     }
 
-    private static LinkedList sortLists(LinkedList a, LinkedList b) {
-        LinkedList c = new LinkedList();
+    private static LinkedList_alternative sortLists(LinkedList_alternative a, LinkedList_alternative b) {
+        LinkedList_alternative c = new LinkedList_alternative();
         c.head = new Node(0, null);
         c.size = a.size + b.size;
         Node na = a.head;

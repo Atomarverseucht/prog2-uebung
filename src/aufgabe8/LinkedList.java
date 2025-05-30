@@ -77,10 +77,10 @@ public class LinkedList {
         LinkedList lb = parts[1].mergeSort();
 
         // Herrsche | Conquer
-        return mergeLists(la, lb);
+        return sortLists(la, lb);
     }
 
-    private static LinkedList mergeLists(LinkedList a, LinkedList b){
+    private static LinkedList sortLists(LinkedList a, LinkedList b){
         Node na = a.head;
         Node nb = b.head;
         Node prev = null;
