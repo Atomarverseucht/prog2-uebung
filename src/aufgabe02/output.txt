@@ -1,0 +1,296 @@
+Soll: Test:3
+Ist:  ein:2
+
+Soll: ein:2
+Ist:  Test:2
+
+Soll: 2
+Ist:  2
+
+Soll: 1
+Ist:  1
+
+Soll: 3
+Ist:  0
+
+Soll: 0
+Ist:  0
+
+Soll: {Test:3, ein:2, das:1, ist:1, } size = 4
+Ist:  {1. ein:2,
+2. Test:2,
+3. Test:2,
+4. das:1,
+5. ist:1,
+} size = 5
+
+Soll: {ist:5, Test:5, das:3, ein:2, kurzer:1, Text:1, } size = 6
+Ist:  {1. ist:5,
+2. das:5,
+3. Test:4,
+4. Test:4,
+5. ein:2,
+6. Test:1,
+} size = 6
+
+Soll: {ist:5, Test:5, das:3, } size = 3
+Ist:  {1. ist:5,
+2. ist:5,
+3. das:5,
+} size = 3
+
+100 häufigste Wörter:
+{1. der:1683,
+2. und:1615,
+3. die:1572,
+4. er:1464,
+5. nicht:1154,
+6. zu:1096,
+7. sich:889,
+8. es:860,
+9. den:859,
+10. in:760,
+11. Sie:727,
+12. ich:722,
+13. sagte:706,
+14. das:691,
+15. war:657,
+16. sie:628,
+17. aber:616,
+18. daß:558,
+19. mit:551,
+20. auf:544,
+21. ist:527,
+22. dem:509,
+23. ein:508,
+24. auch:432,
+25. hatte:388,
+26. als:383,
+27. an:373,
+28. noch:361,
+29. nur:358,
+30. von:348,
+31. so:343,
+32. des:338,
+33. ihm:323,
+34. ihn:319,
+35. wie:313,
+36. eine:308,
+37. Ich:283,
+38. für:280,
+39. man:268,
+40. um:258,
+41. Es:254,
+42. doch:251,
+43. sein:244,
+44. schon:235,
+45. jetzt:226,
+46. aus:218,
+47. einen:215,
+48. wenn:213,
+49. im:212,
+50. mir:205,
+51. mir:205,
+52. denn:202,
+53. sehr:193,
+54. Er:192,
+55. habe:191,
+56. vor:190,
+57. mich:188,
+58. hier:187,
+59. fragte:180,
+60. Tür:177,
+61. sind:175,
+62. haben:175,
+63. einem:175,
+64. zum:171,
+65. dann:170,
+66. durch:169,
+67. über:169,
+68. werden:159,
+69. was:156,
+70. sah:156,
+71. nach:155,
+72. ja:154,
+73. selbst:154,
+74. wollte:144,
+75. einer:140,
+76. bei:138,
+77. dieser:135,
+78. wieder:135,
+79. mehr:133,
+80. hätte:132,
+81. kann:132,
+82. Hand:132,
+83. Der:131,
+84. hat:130,
+85. Ihnen:127,
+86. oder:127,
+87. seine:127,
+88. Das:126,
+89. Advokaten:125,
+90. Mann:122,
+91. nichts:121,
+92. Maler:118,
+93. du:116,
+94. Aber:115,
+95. Advokat:114,
+96. Frau:114,
+97. Prozeß:114,
+98. Fräulein:112,
+99. Die:112,
+100. alles:110,
+} size = 100
+
+Benötigte Zeit in msec: 1005.1752
+
+Process finished with exit code 0
+
+aufgabe01:
+C:\CodeTools\Java_JDK\jdk-23\bin\java.exe "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.3.4.1\lib\idea_rt.jar=52093" -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath C:\Users\tombo\HTWG\AIN2\prog2\prog2-uebung\out\production\prog2-uebung aufgabe01.ArrayFrequencyTable_Test
+Soll: Test:3
+Ist:  test:3
+
+Soll: ein:2
+Ist:  ein:2
+
+Soll: 2
+Ist:  2
+
+Soll: 1
+Ist:  1
+
+Soll: 3
+Ist:  3
+
+Soll: 0
+Ist:  0
+
+Soll: {Test:3, ein:2, das:1, ist:1, } size = 4
+Ist:  {1. test:3,
+2. ein:2,
+3. das:1,
+4. ist:1,
+} size = 4
+
+Soll: {ist:5, Test:5, das:3, ein:2, kurzer:1, Text:1, } size = 6
+Ist:  {1. ist:5,
+2. test:5,
+3. das:3,
+4. ein:2,
+5. kurzer:1,
+6. text:1,
+} size = 6
+
+Soll: {ist:5, Test:5, das:3, } size = 3
+Ist:  {1. ist:5,
+2. test:5,
+3. das:3,
+} size = 3
+
+100 häufigste Wörter:
+{1. der:1814,
+2. und:1711,
+3. die:1684,
+4. er:1656,
+5. sie:1355,
+6. nicht:1166,
+7. es:1114,
+8. zu:1104,
+9. ich:1005,
+10. sich:890,
+11. den:864,
+12. das:817,
+13. in:805,
+14. aber:731,
+15. sagte:707,
+16. war:667,
+17. daß:570,
+18. mit:568,
+19. auf:558,
+20. ein:539,
+21. ist:538,
+22. dem:511,
+23. auch:457,
+24. als:420,
+25. hatte:392,
+26. an:382,
+27. nur:376,
+28. noch:368,
+29. wie:365,
+30. so:363,
+31. von:358,
+32. des:339,
+33. ihm:327,
+34. eine:322,
+35. ihn:319,
+36. man:313,
+37. für:286,
+38. um:275,
+39. wenn:266,
+40. doch:258,
+41. jetzt:254,
+42. sein:247,
+43. schon:245,
+44. im:242,
+45. aus:224,
+46. einen:218,
+47. was:217,
+48. ja:216,
+49. dann:215,
+50. hier:213,
+51. mir:210,
+52. vor:205,
+53. denn:204,
+54. ihnen:203,
+55. sehr:195,
+56. habe:191,
+57. mich:189,
+58. fragte:180,
+59. sind:179,
+60. haben:178,
+61. tür:177,
+62. durch:175,
+63. einem:175,
+64. zum:174,
+65. über:172,
+66. du:164,
+67. nach:162,
+68. selbst:160,
+69. werden:159,
+70. sah:158,
+71. bei:148,
+72. dieser:147,
+73. wollte:145,
+74. einer:143,
+75. wieder:140,
+76. hätte:138,
+77. kann:136,
+78. hat:136,
+79. da:136,
+80. nun:135,
+81. mehr:134,
+82. oder:133,
+83. hand:133,
+84. ihr:132,
+85. seine:131,
+86. diese:130,
+87. advokaten:125,
+88. mann:122,
+89. vielleicht:122,
+90. nichts:122,
+91. maler:118,
+92. advokat:114,
+93. frau:114,
+94. alles:114,
+95. prozeß:114,
+96. fräulein:112,
+97. ganz:108,
+98. immer:106,
+99. bin:104,
+100. zeit:104,
+} size = 100
+
+Benötigte Zeit in msec: 447.6767
+
+Process finished with exit code 0
