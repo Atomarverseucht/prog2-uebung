@@ -83,8 +83,14 @@ public class LinkedList {
     private static LinkedList sortLists(LinkedList a, LinkedList b){
         Node na = a.head;
         Node nb = b.head;
+
         Node prev = null;
         a.size += b.size;
+
+        //alte B-Liste soll nur noch an nb hängen (leere Liste)
+        b.head = null;
+        b.size = 0;
+
         while(nb != null){
             if(na == null || na.value >= nb.value){
                 Node p = nb.next;
@@ -104,7 +110,7 @@ public class LinkedList {
             }
         }
         // B sollte nicht mehr existieren
-        b.head = null;
+
         return a;
     }
 
