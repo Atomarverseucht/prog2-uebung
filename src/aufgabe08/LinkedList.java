@@ -85,7 +85,6 @@ public class LinkedList {
         Node nb = b.head;
         Node prev = null;
         a.size += b.size;
-
         while(nb != null){
             if(na == null || na.value >= nb.value){
                 Node p = nb.next;
@@ -104,7 +103,8 @@ public class LinkedList {
                 na = na.next;
             }
         }
-        System.out.println(a);
+        // B sollte nicht mehr existieren
+        b.head = null;
         return a;
     }
 
