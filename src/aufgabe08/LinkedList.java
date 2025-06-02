@@ -83,8 +83,14 @@ public class LinkedList {
     private static LinkedList sortLists(LinkedList a, LinkedList b){
         Node na = a.head;
         Node nb = b.head;
+
         Node prev = null;
         a.size += b.size;
+
+        //alte B-Liste soll nur noch an nb hängen (leere Liste)
+        b.head = null;
+        b.size = 0;
+
         while(nb != null){
             if(na == null || na.value >= nb.value){
                 Node p = nb.next;
@@ -103,23 +109,22 @@ public class LinkedList {
                 na = na.next;
             }
         }
-        // B sollte nicht mehr existieren
-        b.head = null;
+
         return a;
     }
 
-    private static LinkedList sortLists_alt(LinkedList a, LinkedList b) {
+    private static LinkedList sortLists_(LinkedList a, LinkedList b) {
         LinkedList c = new LinkedList();
-        c.head = new LinkedList.Node(0, null);
+        c.head = new LinkedList.Node(Integer.MIN_VALUE, null); //Hilfsknoten
         c.size = a.size + b.size;
-        LinkedList.Node na = a.head;
-        LinkedList.Node nb = b.head;
-        LinkedList.Node nc = c.head;
-        LinkedList.Node result = c.head;
+        Node na = a.head;
+        Node nb = b.head;
+        Node nc = c.head;
+        Node result = c.head;
 
         while (na != null && nb != null) {
             if (na.value <= nb.value) {
-                nc.next = new LinkedList.Node(na.value, null);
+                nc.next = new Node(na.value, null);
                 na = na.next;
                 nc = nc.next;
 
@@ -132,18 +137,18 @@ public class LinkedList {
 
         if (nb == null) {
             while (na != null) {
-                nc.next = new LinkedList.Node(na.value, null);
+                nc.next = new Node(na.value, null);
                 na = na.next;
                 nc = nc.next;
             }
         } else {
             while (nb != null) {
-                nc.next = new LinkedList.Node(nb.value, null);
+                nc.next = new Node(nb.value, null);
                 nb = nb.next;
                 nc = nc.next;
             }
         }
-        c.head = result.next;
+        c.head = result.next; //Hilfskopfknoten löschen
         return c;
     }
 }
