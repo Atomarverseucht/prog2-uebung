@@ -108,4 +108,42 @@ public class LinkedList {
         return a;
     }
 
+    private static LinkedList sortLists_alt(LinkedList a, LinkedList b) {
+        LinkedList c = new LinkedList();
+        c.head = new LinkedList.Node(0, null);
+        c.size = a.size + b.size;
+        LinkedList.Node na = a.head;
+        LinkedList.Node nb = b.head;
+        LinkedList.Node nc = c.head;
+        LinkedList.Node result = c.head;
+
+        while (na != null && nb != null) {
+            if (na.value <= nb.value) {
+                nc.next = new LinkedList.Node(na.value, null);
+                na = na.next;
+                nc = nc.next;
+
+            } else {
+                nc.next = new LinkedList.Node(nb.value, null);
+                nb = nb.next;
+                nc = nc.next;
+            }
+        }
+
+        if (nb == null) {
+            while (na != null) {
+                nc.next = new LinkedList.Node(na.value, null);
+                na = na.next;
+                nc = nc.next;
+            }
+        } else {
+            while (nb != null) {
+                nc.next = new LinkedList.Node(nb.value, null);
+                nb = nb.next;
+                nc = nc.next;
+            }
+        }
+        c.head = result.next;
+        return c;
+    }
 }

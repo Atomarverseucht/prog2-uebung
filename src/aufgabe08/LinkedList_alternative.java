@@ -119,7 +119,5 @@ public class LinkedList_alternative {
         }
         c.head = result.next;
         return c;
-
     }
-
 }
