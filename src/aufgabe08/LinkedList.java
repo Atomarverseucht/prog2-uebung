@@ -75,9 +75,12 @@ public class LinkedList {
         LinkedList[] parts = split();
         LinkedList la = parts[0].mergeSort();
         LinkedList lb = parts[1].mergeSort();
-
+        la = sortLists_(la, lb);
+        this.head = la.head;
+        this.size = la.size;
         // Herrsche | Conquer
-        return sortLists(la, lb);
+        return this;
+
     }
 
     private static LinkedList sortLists(LinkedList a, LinkedList b){
