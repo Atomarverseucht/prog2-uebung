@@ -13,7 +13,7 @@ public abstract class CompoundExpression implements Expression {
 
     @Override
     public Set<String> getVars(){
-        Set<String> out = new TreeSet<String>();
+        Set<String> out = new TreeSet<>();
         out.addAll(left.getVars());
         out.addAll(right.getVars());
         return out;
