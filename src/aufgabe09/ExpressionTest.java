@@ -48,7 +48,7 @@ public class ExpressionTest {
                 );
 		
 		// Audruck e4 = a + (b + c)
-		Expression e4 = new Sum(a , new Sum(b, c));	// Vorsicht: Sie müssen e4 noch definieren.
+		Expression e4 = new Sum(a , new Sum(b, c));
 
         // Belegung alle Variablen als Map:
         Map<String, Double> varBel = new TreeMap<>();

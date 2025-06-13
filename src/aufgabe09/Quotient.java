@@ -10,7 +10,7 @@ public class Quotient extends CompoundExpression {
 
     @Override
     public String toString(){
-        return "(" + left + " : " + right + ")";
+        return "(" + left + " / " + right + ")";
     }
 
     @Override
