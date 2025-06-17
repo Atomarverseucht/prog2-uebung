@@ -2,17 +2,43 @@ package aufgabe10;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class CalcGUI extends JFrame{
+public class CalcGUI extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         JFrame gui = new CalcGUI();
     }
 
+    // Konstanten
     static final int w = 1000;
     static final int h = 900;
 
-    // Konstruktor
+    // Buttons
+    JButton plus = new JButton("+");
+    JButton mul = new JButton("*");
+    JButton minus = new JButton("-");
+    JButton divide = new JButton("/");
+    JButton sin = new JButton("sin");
+    JButton cos = new JButton("cos");
+    JButton pow = new JButton("x^y");
+    JButton log2 = new JButton("log2");
+
+    // Textboxen & Labels
+    JLabel lX = new JLabel("Operand x");
+    JTextField tX = new JTextField();
+    JLabel lY = new JLabel("Operand y");
+    JTextField tY = new JTextField();
+    JLabel lRes = new JLabel("Resultat");
+    JTextField tRes = new JTextField();
+
+    // Sonstiges
+    JRadioButton deg = new JRadioButton("Deg", true);
+    JRadioButton rad = new JRadioButton("Rad");
+    JCheckBox mode = new JCheckBox("Helles Display", true);
+
+    // Initializes the GUI
     public CalcGUI(){
         this.setTitle("Calculator");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,13 +51,6 @@ public class CalcGUI extends JFrame{
         JButton clear = new JButton("Clear");
 
         // Panel in
-        JLabel lX = new JLabel("Operand x");
-        JTextField tX = new JTextField();
-        JLabel lY = new JLabel("Operand y");
-        JTextField tY = new JTextField();
-        JLabel lRes = new JLabel("Resultat");
-        JTextField tRes = new JTextField();
-
         in.setLayout(new GridLayout(3, 2));
         in.add(lX);
         in.add(tX);
@@ -41,24 +60,11 @@ public class CalcGUI extends JFrame{
         in.add(tRes);
 
         // Panel form
-        JCheckBox deg = new JCheckBox("Deg");
-        JCheckBox rad = new JCheckBox("Rad");
-        JCheckBox mode = new JCheckBox("Helles Display");
-        mode.setSelected(true);
-
         form.add(deg);
         form.add(rad);
         form.add(mode);
 
-        // Panel op
-        JButton plus = new JButton("+");
-        JButton mul = new JButton("*");
-        JButton minus = new JButton("-");
-        JButton divide = new JButton("/");
-        JButton sin = new JButton("sin");
-        JButton cos = new JButton("cos");
-        JButton pow = new JButton("pow");
-        JButton log2 = new JButton("log2");
+        // Panel op - Buttons s
 
         op.setLayout(new GridLayout(2, 4));
         op.add(plus);
@@ -79,5 +85,49 @@ public class CalcGUI extends JFrame{
 
         this.pack();
         this.setVisible(true);
+
+        // ActionListener
+        plus.addActionListener(this);
+        minus.addActionListener(this);
+        mul.addActionListener(this);
+        divide.addActionListener(this);
+        sin.addActionListener(this);
+        cos.addActionListener(this);
+        pow.addActionListener(this);
+        log2.addActionListener(this);
+        clear.addActionListener(this);
+        rad.addActionListener(this);
+        deg.addActionListener(this);
+        mode.addActionListener(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e){
+        try {
+            String cmd = e.getActionCommand();
+            switch(cmd){
+                case "Clear":
+                    tX.setText(""); tY.setText(""); tRes.setText(""); return;
+                case "Rad":
+                    deg.setSelected(!rad.isSelected()); return;
+                case "Deg":
+                    rad.setSelected(!deg.isSelected()); return;
+                case "Helles Display":
+                    // Hier dsrkmode und so
+                    return;
+                case "sin", "cos", "log2":
+                    tY.setText("");
+                    break;
+                case "+", "-", "*", "/", "x^y":
+                    break;
+                default:
+                    System.out.println(cmd);
+                    return;
+            }
+            tRes.setText(Double.toString(Calculator.calculate(Double.parseDouble(tX.getText()), Double.parseDouble(tY.getText()), cmd, rad.isSelected())));
+
+        } catch(NumberFormatException nfe){
+            tRes.setText("Fehler: ZahlenEingabe");
+        }
     }
 }
