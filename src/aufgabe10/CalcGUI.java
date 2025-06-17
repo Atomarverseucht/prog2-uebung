@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CalcGUI extends JFrame implements ActionListener {
+public final class CalcGUI extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         JFrame gui = new CalcGUI();
@@ -27,9 +27,9 @@ public class CalcGUI extends JFrame implements ActionListener {
 
     // Textboxen & Labels
     JLabel lX = new JLabel("Operand x");
-    JTextField tX = new JTextField();
+    JTextField tX = new JTextField("0");
     JLabel lY = new JLabel("Operand y");
-    JTextField tY = new JTextField();
+    JTextField tY = new JTextField("0");
     JLabel lRes = new JLabel("Resultat");
     JTextField tRes = new JTextField();
 
@@ -105,6 +105,7 @@ public class CalcGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e){
         try {
             String cmd = e.getActionCommand();
+            final double y;
             switch(cmd){
                 case "Clear":
                     tX.setText(""); tY.setText(""); tRes.setText(""); return;
@@ -116,15 +117,17 @@ public class CalcGUI extends JFrame implements ActionListener {
                     // Hier dsrkmode und so
                     return;
                 case "sin", "cos", "log2":
+                    y = 0;
                     tY.setText("");
                     break;
                 case "+", "-", "*", "/", "x^y":
+                    y = Double.parseDouble(tY.getText());
                     break;
                 default:
                     System.out.println(cmd);
                     return;
             }
-            tRes.setText(Double.toString(Calculator.calculate(Double.parseDouble(tX.getText()), Double.parseDouble(tY.getText()), cmd, rad.isSelected())));
+            tRes.setText(String.format("%.6f", Calculator.calculate(Double.parseDouble(tX.getText()), y, cmd, deg.isSelected())));
 
         } catch(NumberFormatException nfe){
             tRes.setText("Fehler: ZahlenEingabe");
