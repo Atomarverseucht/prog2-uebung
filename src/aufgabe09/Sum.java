@@ -6,12 +6,9 @@ public class Sum extends CompoundExpression {
 
     public Sum(Expression e1, Expression e2) {
         super(e1, e2);
+        operator = '+';
     }
 
-    @Override
-    public String toString(){
-        return  "(" + left + " + " + right + ")";
-    }
 
     @Override
     public double eval(Map<String, Double> varBel){

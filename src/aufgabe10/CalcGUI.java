@@ -49,6 +49,7 @@ public final class CalcGUI extends JFrame implements ActionListener {
         JPanel form = new JPanel();
         JPanel op = new JPanel();
         JButton clear = new JButton("Clear");
+        JPanel gui = new JPanel();
 
         // Panel in
         in.setLayout(new GridLayout(3, 2));
@@ -58,6 +59,7 @@ public final class CalcGUI extends JFrame implements ActionListener {
         in.add(tY);
         in.add(lRes);
         in.add(tRes);
+        tRes.setEditable(false);
 
         // Panel form
         form.add(deg);
@@ -77,11 +79,13 @@ public final class CalcGUI extends JFrame implements ActionListener {
         op.add(log2);
 
         // GUI zusammenbasteln
-        this.setLayout(new GridLayout(4, 1));
-        this.add(in);
-        this.add(form);
-        this.add(op);
-        this.add(clear);
+        gui.setLayout(new GridLayout(4, 1));
+        gui.add(in);
+        gui.add(form);
+        gui.add(op);
+        gui.add(clear);
+        gui.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        this.add(gui);
 
         this.pack();
         this.setVisible(true);
@@ -108,17 +112,26 @@ public final class CalcGUI extends JFrame implements ActionListener {
             final double y;
             switch(cmd){
                 case "Clear":
-                    tX.setText(""); tY.setText(""); tRes.setText(""); return;
+                    tX.setText("0"); tY.setText("0"); tRes.setText(""); return;
                 case "Rad":
                     deg.setSelected(!rad.isSelected()); return;
                 case "Deg":
                     rad.setSelected(!deg.isSelected()); return;
                 case "Helles Display":
-                    // Hier dsrkmode und so
+                    Color back = mode.isSelected() ? Color.WHITE : Color.BLACK;
+                    Color f = mode.isSelected() ? Color.BLACK : Color.GREEN;
+                    tX.setBackground(back);
+                    tY.setBackground(back);
+                    tRes.setBackground(back);
+
+                    tX.setForeground(f);
+                    tY.setForeground(f);
+                    tRes.setForeground(f);
+                    // Hier darkmode und so
                     return;
                 case "sin", "cos", "log2":
                     y = 0;
-                    tY.setText("");
+                    tY.setText("0");
                     break;
                 case "+", "-", "*", "/", "x^y":
                     y = Double.parseDouble(tY.getText());
