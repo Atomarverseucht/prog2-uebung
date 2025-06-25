@@ -1,19 +1,24 @@
-package aufgabe10;
+package aufgabe11;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.function.Function;
+import java.util.function.BiFunction;
+
 
 public final class CalcGUI extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
-        JFrame gui = new CalcGUI();
+        JFrame gui = new CalcGUI(x -> x*x, (x, y) -> x / y);
     }
 
     // Konstanten
     static final int w = 1000;
     static final int h = 900;
+    final Function<Double, Double> fun;
+    final BiFunction<Double, Double, Double> bf;
 
     // Buttons
     JButton plus = new JButton("+");
@@ -39,10 +44,13 @@ public final class CalcGUI extends JFrame implements ActionListener {
     JCheckBox mode = new JCheckBox("Helles Display", true);
 
     // Initializes the GUI
-    public CalcGUI(){
+    public CalcGUI(Function<Double, Double> fun, BiFunction<Double, Double, Double> bf){
         this.setTitle("Calculator");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setPreferredSize(new Dimension(w, h));
+        this.fun = fun;
+        this.bf = bf;
+
 
         // Grobe Struktur
         JPanel in = new JPanel();
@@ -50,6 +58,9 @@ public final class CalcGUI extends JFrame implements ActionListener {
         JPanel op = new JPanel();
         JButton clear = new JButton("Clear");
         JPanel gui = new JPanel();
+        JButton btF = new JButton("f(x)");
+        JButton btBF = new JButton("g(x, y)");
+        JPanel funs = new JPanel();
 
         // Panel in
         in.setLayout(new GridLayout(3, 2));
@@ -78,12 +89,18 @@ public final class CalcGUI extends JFrame implements ActionListener {
         op.add(pow);
         op.add(log2);
 
+        // Panel funs
+        funs.setLayout(new GridLayout(1, 3));
+        funs.add(btF);
+        funs.add(btBF);
+        funs.add(clear);
+
         // GUI zusammenbasteln
         gui.setLayout(new GridLayout(4, 1));
         gui.add(in);
         gui.add(form);
         gui.add(op);
-        gui.add(clear);
+        gui.add(funs);
         gui.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         this.add(gui);
 
@@ -103,6 +120,8 @@ public final class CalcGUI extends JFrame implements ActionListener {
         rad.addActionListener(this);
         deg.addActionListener(this);
         mode.addActionListener(this);
+        btF.addActionListener(this);
+        btBF.addActionListener(this);
     }
 
     @Override
@@ -110,6 +129,7 @@ public final class CalcGUI extends JFrame implements ActionListener {
         try {
             String cmd = e.getActionCommand();
             final double y;
+            double x;
             switch(cmd){
                 case "Clear":
                     tX.setText("0"); tY.setText("0"); tRes.setText(""); return;
@@ -128,6 +148,16 @@ public final class CalcGUI extends JFrame implements ActionListener {
                     tY.setForeground(f);
                     tRes.setForeground(f);
                     // Hier darkmode und so
+                    return;
+                case "f(x)":
+                    x = Double.parseDouble(tX.getText());
+                    tRes.setText(fun.apply(x).toString());
+                    tY.setText("0");
+                    return;
+                case "g(x, y)":
+                    x = Double.parseDouble(tX.getText());
+                    y = Double.parseDouble(tY.getText());
+                    tRes.setText(bf.apply(x,y).toString());
                     return;
                 case "sin", "cos", "log2":
                     y = 0;

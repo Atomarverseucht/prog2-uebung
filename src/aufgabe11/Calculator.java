@@ -1,4 +1,4 @@
-package aufgabe10;
+package aufgabe11;
 
 // Klasse welche das Ergebnis berechnet
 public final class Calculator {
