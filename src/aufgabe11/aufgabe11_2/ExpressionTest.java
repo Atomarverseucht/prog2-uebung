@@ -2,8 +2,6 @@ package aufgabe11.aufgabe11_2;
 
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.function.Function;
-import java.util.function.BiFunction;
 
 /**
  * Testprogramm für Aufgabe 9 (Bäume für arithmetische Ausdrücke).
@@ -52,6 +50,9 @@ public class ExpressionTest {
 		// Audruck e4 = a + (b + c)
 		Expression e4 = new Sum(a , new Sum(b, c));
 
+        // neuer Ausdruck e5 = a + f(b, g(c)) mit f(x, y) = x * y und g(x) = cos(x)
+        Expression e5 = new Sum(a, new BiFunc((x, y) -> x * y, b, new Func(Math::cos, c)));
+
         // Belegung alle Variablen als Map:
         Map<String, Double> varBel = new TreeMap<>();
         varBel.put("a", 3.0);
@@ -64,6 +65,7 @@ public class ExpressionTest {
         System.out.println(e2.eval(varBel));  // 55.0
         System.out.println(e3.eval(varBel));  // 5.0
         System.out.println(e4.eval(varBel));  // 15.0
+        System.out.println(e5.eval(varBel));
 
         // Variablenbelegung ändern
         varBel.put("b", 1.0);
@@ -73,12 +75,14 @@ public class ExpressionTest {
         System.out.println(e2.eval(varBel));  // 55.0
         System.out.println(e3.eval(varBel));  // 4.0
         System.out.println(e4.eval(varBel));  // 12.0
+        System.out.println(e5.eval(varBel));  // 2.8544999661913866
 
         // Alle Variablen in e1:
         System.out.println(e1.getVars());	// [a, b]
         System.out.println(e2.getVars());	// [n]
         System.out.println(e3.getVars());	// [a, b, c]
-		  System.out.println(e4.getVars());	// [a, b, c]
+        System.out.println(e4.getVars());	// ...
+        System.out.println(e5.getVars());   // ...
 
         // Pruefe, ob alle Variablen in e1 belegt sind:
         System.out.println(varBel.keySet().containsAll(e1.getVars()));	// true
@@ -87,6 +91,7 @@ public class ExpressionTest {
         System.out.println(e1);		// ((a * a) + (b * b))
         System.out.println(e2);		// ((n * (n + 1.0)) / 2.0)
         System.out.println(e3);		// (((a + b) + c) / 3.0)
-        System.out.println(e4);		// (a + (b + c))
+        System.out.println(e4);     // (a + (b + c))
+        System.out.println(e5);     // (a + g(b , f(c)))
     }
 }

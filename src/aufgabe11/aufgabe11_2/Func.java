@@ -21,4 +21,9 @@ public class Func implements Expression{
         this.fun = fun;
         this.x = x;
     }
+
+    @Override
+    public String toString(){
+        return "f(" + x.toString() + ")";
+    }
 }
